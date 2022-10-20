@@ -1,11 +1,10 @@
-import logo2 from "./assets/img/my.svg";
 import "./App.css";
-import Login from "./comonents/login";
+import { Link } from "react-router-dom";
 
 function App() {
   return (
     <div className='App'>
-      <Login />
+      <Link to='/login'>Войти</Link>
     </div>
   );
 }
