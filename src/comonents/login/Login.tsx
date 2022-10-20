@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import authenticateUser, { IUserData } from "../../api/authenticateService";
-// import axios from "axios";
 import { Formik } from "formik";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsAuth } from "../../state/slices/AuthSlice";
 import classes from "./Login.module.scss";
+import { RootState } from "../../state/store";
 
-type Props = {};
 type Errors = {
   username?: string;
   password?: string;
@@ -15,6 +16,13 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("isAuth", isAuth);
+  }, [isAuth]);
 
   useEffect(() => {
     authenticateUser(data);
@@ -78,7 +86,11 @@ const Login = () => {
               {errors.password && touched.password && <p>{errors.password}</p>}
             </label>
 
-            <button type='submit' disabled={isSubmitting}>
+            <button
+              type='submit'
+              disabled={isSubmitting}
+              onClick={() => dispatch(setIsAuth(true))}
+            >
               Submit
             </button>
           </form>
