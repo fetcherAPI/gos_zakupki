@@ -9,12 +9,17 @@
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
+  text-align: center;
   background-color: aqua;
   width: 45%;
   margin: auto;
-  align-items: center;
+  input {
+    width: 90%;
+    height: 30px;
+    margin: 5px;
+    border-radius: 5px;
+    outline: none;
+  }
   button {
     width: 30%;
   }

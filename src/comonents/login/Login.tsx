@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import authenticateUser, { IUserData } from "../../api/authenticateService";
 import { Formik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsAuth } from "../../state/slices/AuthSlice";
+// import { setIsAuth } from "../../state/slices/AuthSlice";
 import classes from "./Login.module.scss";
-import { RootState } from "../../state/store";
+// import { RootState } from "../../state/store";
 
 type Errors = {
   username?: string;
@@ -16,17 +16,14 @@ const Login = () => {
     username: "",
     password: "",
   });
-
-  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  //   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("isAuth", isAuth);
-  }, [isAuth]);
 
   useEffect(() => {
     authenticateUser(data);
   }, []);
+
+  console.log(process.env.REACT_APP_KEY);
 
   return (
     <>
@@ -86,12 +83,8 @@ const Login = () => {
               {errors.password && touched.password && <p>{errors.password}</p>}
             </label>
 
-            <button
-              type='submit'
-              disabled={isSubmitting}
-              onClick={() => dispatch(setIsAuth(true))}
-            >
-              Submit
+            <button type='submit' disabled={isSubmitting}>
+              войти
             </button>
           </form>
         )}
