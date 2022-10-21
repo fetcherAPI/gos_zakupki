@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
-import authenticateUser, { IUserData } from "../../api/authenticateService";
 import { Formik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
+import authenticateUser from "../../api/authenticateService";
+import { loginValidate } from "../../utils/loginValidator";
+import { UserData } from "../../typescript/types";
 // import { setIsAuth } from "../../state/slices/AuthSlice";
-import classes from "./Login.module.scss";
 // import { RootState } from "../../state/store";
-
-type Errors = {
-  username?: string;
-  password?: string;
-};
+import classes from "./Login.module.scss";
 
 const Login = () => {
-  const [data, setData] = useState<IUserData>({
+  const [data, setData] = useState<UserData>({
     username: "",
     password: "",
   });
@@ -29,15 +26,7 @@ const Login = () => {
     <>
       <Formik
         initialValues={{ username: "", password: "" }}
-        validate={(values) => {
-          const errors: Errors = {};
-          if (!values.username) {
-            errors.username = "Required";
-          } else if (!values.password) {
-            errors.password = "password is Required";
-          }
-          return errors;
-        }}
+        validate={(values) => loginValidate(values)}
         onSubmit={(values, { setSubmitting }) => {
           alert(JSON.stringify(values));
           setData(values);
@@ -66,6 +55,7 @@ const Login = () => {
                 onBlur={handleBlur}
                 value={values.username}
               />
+              {/* подсветка ошибки если есть */}
               {errors.username && touched.username && <p>{errors.username}</p>}
             </label>
             <label
@@ -80,6 +70,7 @@ const Login = () => {
                 onBlur={handleBlur}
                 value={values.password}
               />
+              {/* подсветка ошибки если есть */}
               {errors.password && touched.password && <p>{errors.password}</p>}
             </label>
 

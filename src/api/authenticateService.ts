@@ -1,9 +1,7 @@
 import axios from "axios";
-export interface IUserData {
-  username: string;
-  password: string;
-}
-const login = (data: IUserData) => {
+import { UserData } from "../typescript/types";
+
+const login = (data: UserData) => {
   // axios({
   //   method: "post",
   //   url: "http://10.200.24.103/api/authenticate",
@@ -20,7 +18,9 @@ const login = (data: IUserData) => {
     headers: {
       "content-type": "application/json",
     },
-  }).then((res) => console.log("res", res));
+  })
+    .then((res) => console.log("res", res))
+    .catch((error) => console.log("error", error));
 };
 
 export default login;

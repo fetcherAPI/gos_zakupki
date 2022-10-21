@@ -1,0 +1,19 @@
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+
+export type LotDocument = {
+  title?: string;
+  data?: LotDocument.data;
+};
+
+export namespace LotDocument {
+  export enum data {
+    CERTIFICATE_OF_SUITABILITY = "CERTIFICATE_OF_SUITABILITY",
+    DECLARATION_OF_SUITABILITY = "DECLARATION_OF_SUITABILITY",
+    AGREEMENT_LETTER_OF_PRODUCT_FACTORY = "AGREEMENT_LETTER_OF_PRODUCT_FACTORY",
+    AUTHORIZED_LETTER_OF_PRODUCT_FACTORY_DILLER = "AUTHORIZED_LETTER_OF_PRODUCT_FACTORY_DILLER",
+    RADIOLOGICAL_TEST_PROTOCOL = "RADIOLOGICAL_TEST_PROTOCOL",
+    OTHER_DOCUMENTS = "OTHER_DOCUMENTS",
+  }
+}
