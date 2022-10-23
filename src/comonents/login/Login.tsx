@@ -1,36 +1,46 @@
-import { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { useSelector, useDispatch } from "react-redux";
-import authenticateUser from "../../api/authenticateService";
-import { loginValidate } from "../../utils/loginValidator";
-import { UserData } from "../../typescript/types";
-// import { setIsAuth } from "../../state/slices/AuthSlice";
-// import { RootState } from "../../state/store";
+import { useDispatch } from "react-redux";
+import { setIsAuth } from "../../state/slices/AuthSlice";
 import classes from "./Login.module.scss";
+import AuthService from "../../services/AuthService";
+import USER_ROLES from "../../typescript/enums/userRoles";
 
 const Login = () => {
-  const [data, setData] = useState<UserData>({
-    username: "",
-    password: "",
-  });
-  //   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    authenticateUser(data);
-  }, []);
+  const login = async (username: string, password: string) => {
+    try {
+      const res = await AuthService.login(username, password);
+      localStorage.setItem("Authorization", res.data.token);
+      return res;
+    } catch (error) {
+      console.log("error", error);
+      return error;
+    }
+  };
 
-  console.log(process.env.REACT_APP_KEY);
-
+  type Error = {
+    username?: string;
+    password?: string;
+  };
   return (
     <>
       <Formik
         initialValues={{ username: "", password: "" }}
-        validate={(values) => loginValidate(values)}
+        validate={(values) => {
+          const errors: Error = {};
+          if (!values.username) {
+            errors.username = "Required";
+          } else if (!values.password) {
+            errors.password = "password is Required";
+          }
+          return errors;
+        }}
         onSubmit={(values, { setSubmitting }) => {
-          alert(JSON.stringify(values));
-          setData(values);
-          setSubmitting(false);
+          setTimeout(() => {
+            login(values.username, values.password);
+            setSubmitting(false);
+          });
         }}
       >
         {({
@@ -41,6 +51,7 @@ const Login = () => {
           handleBlur,
           handleSubmit,
           isSubmitting,
+          /* and other goodies */
         }) => (
           <form onSubmit={handleSubmit} className={classes.form}>
             <label
@@ -74,7 +85,11 @@ const Login = () => {
               {errors.password && touched.password && <p>{errors.password}</p>}
             </label>
 
-            <button type='submit' disabled={isSubmitting}>
+            <button
+              type='submit'
+              disabled={isSubmitting}
+              onClick={() => console.log("first")}
+            >
               войти
             </button>
           </form>

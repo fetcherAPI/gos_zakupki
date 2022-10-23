@@ -1,6 +1,9 @@
 import { UserData, LoginFormError } from "../typescript/types";
 export const loginValidate = (values: UserData) => {
-  const errors: LoginFormError = {};
+  const errors: LoginFormError = {
+    username: "",
+    password: "",
+  };
   if (!values.username) {
     errors.username = "Required";
   } else if (!values.password) {
