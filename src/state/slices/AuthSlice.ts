@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosResponse } from "axios";
-import { stat } from "fs";
-import { AuthResponce } from "../../models/response/AuthResponse";
+import axios from "axios";
 import { UserData } from "../../models/types";
 
 export const authenticateUser = createAsyncThunk(
@@ -15,10 +13,10 @@ export const authenticateUser = createAsyncThunk(
           password,
         }
       );
-      return responcse;
-    } catch (error) {
-      console.log("error", error);
-      return rejectWithValue(error);
+      return responcse.data;
+    } catch (error: any) {
+      console.log("error", error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -31,7 +29,7 @@ export interface IAouthState {
 }
 
 const initialState: IAouthState = {
-  isAuth: true,
+  isAuth: false,
   status: null,
   error: null,
   user: null,

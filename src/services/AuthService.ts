@@ -7,7 +7,7 @@ export default class AuthService {
     username: string,
     password: string
   ): Promise<AxiosResponse<AuthResponce>> {
-    return axios.post<AuthResponce>("http://10.100.4.164:8087/authenticate", {
+    return axios.post<AuthResponce>("http://10.200.24.103/api/authenticate", {
       username,
       password,
     });
