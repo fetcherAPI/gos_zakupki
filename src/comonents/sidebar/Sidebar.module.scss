@@ -1,0 +1,11 @@
+@import "../../scss/vars.scss";
+.sidebar {
+  background-color: $main-color;
+  width: 30%;
+  height: 100vh;
+}
+
+.list {
+  background-color: aqua;
+  padding: 60px 40px;
+}

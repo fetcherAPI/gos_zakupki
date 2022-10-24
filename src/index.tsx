@@ -7,7 +7,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Login from "./comonents/login";
-import { URLS_PTH } from "./typescript/urlPath/urlsPath";
+import { URLS_PTH } from "./models/urlPath/urlsPath";
+import Sidebar from "./comonents/sidebar";
 // import { Invoice } from "./comonents/Invoice/Invoice";
 
 const root = ReactDOM.createRoot(
@@ -20,6 +21,7 @@ root.render(
         <Routes>
           <Route path='/' element={<App />} />
           <Route path={URLS_PTH.LOGIN} element={<Login />} />
+          <Route path={"/sidebar"} element={<Sidebar />} />
           {/* <Route path='invoices/:invoiceId' element={<Invoice />} /> */}
         </Routes>
       </React.StrictMode>

@@ -1,4 +1,5 @@
-import { UserData, LoginFormError } from "../typescript/types";
+import { UserData, LoginFormError } from "../models/types";
+
 export const loginValidate = (values: UserData) => {
   const errors: LoginFormError = {
     username: "",

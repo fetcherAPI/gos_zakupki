@@ -1,0 +1,24 @@
+@import "../../../../scss/vars.scss";
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 0px 0px 20px;
+}
+
+.title {
+  margin: 0;
+  font-weight: 500;
+  font-style: normal;
+  span {
+    color: $sub-title-color;
+  }
+}
+
+.btn {
+  background-color: transparent;
+  border: 1px solid $side-bar-btn-border-color;
+  border-radius: 5px 0px 0px 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

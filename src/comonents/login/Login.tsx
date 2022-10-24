@@ -1,20 +1,31 @@
 import { Formik } from "formik";
-import { useDispatch } from "react-redux";
-import { setIsAuth } from "../../state/slices/AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setError, setIsAuth } from "../../state/slices/AuthSlice";
 import classes from "./Login.module.scss";
+import { authenticateUser } from "../../state/slices/AuthSlice";
 import AuthService from "../../services/AuthService";
-import USER_ROLES from "../../typescript/enums/userRoles";
+import USER_ROLES from "../../models/enums/userRoles";
+import { RootState } from "../../state/store";
 
 const Login = () => {
   const dispatch = useDispatch();
-
+  const { isAuth, error } = useSelector((state: RootState) => state.auth);
   const login = async (username: string, password: string) => {
     try {
       const res = await AuthService.login(username, password);
       localStorage.setItem("Authorization", res.data.token);
-      return res;
+      if (
+        res.data.role === USER_ROLES.PROCURING_ENTITY ||
+        res.data.role === USER_ROLES.PROCURING_ENTITY_HEAD ||
+        res.data.role === USER_ROLES.PROCURING_ENTITY_MANAGER
+      ) {
+        dispatch(setIsAuth(true));
+      } else {
+        throw new Error("Role is not correct");
+      }
     } catch (error) {
       console.log("error", error);
+      // dispatch(setError(error));
       return error;
     }
   };
@@ -25,6 +36,7 @@ const Login = () => {
   };
   return (
     <>
+      {error && <h1>error</h1>}
       <Formik
         initialValues={{ username: "", password: "" }}
         validate={(values) => {

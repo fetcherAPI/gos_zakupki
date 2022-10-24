@@ -1,6 +1,6 @@
 import "./App.css";
 import { Link } from "react-router-dom";
-import { URLS_PTH } from "./typescript/urlPath/urlsPath";
+import { URLS_PTH } from "./models/urlPath/urlsPath";
 
 function App() {
   return (
