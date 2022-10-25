@@ -7,7 +7,6 @@ const Sidebar = () => {
   return (
     <div className={classes.sidebar}>
       <Header />
-
       <ul className={classes.list}>
         <ListItem svgUrl={mySvg} text='gjkgfkl' />
       </ul>

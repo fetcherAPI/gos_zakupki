@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { store } from "./state/store";
 import { Provider } from "react-redux";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Login from "./comonents/login";
-import { URLS_PTH } from "./models/urlPath/urlsPath";
-import Sidebar from "./comonents/sidebar";
+import AppRouter from "./routes/AppRouter";
+
 // import { Invoice } from "./comonents/Invoice/Invoice";
 
 const root = ReactDOM.createRoot(
@@ -18,12 +16,7 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <React.StrictMode>
-        <Routes>
-          <Route path='/' element={<App />} />
-          <Route path={URLS_PTH.LOGIN} element={<Login />} />
-          <Route path={"/sidebar"} element={<Sidebar />} />
-          {/* <Route path='invoices/:invoiceId' element={<Invoice />} /> */}
-        </Routes>
+        <AppRouter />
       </React.StrictMode>
     </Provider>
   </BrowserRouter>

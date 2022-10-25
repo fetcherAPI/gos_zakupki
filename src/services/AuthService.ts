@@ -13,6 +13,10 @@ export default class AuthService {
     });
   }
 
+  static async chekAuth(): Promise<AxiosResponse<AuthResponce>> {
+    return api.get<AuthResponce>("/refresh_token");
+  }
+
   static async logout(): Promise<void> {
     return api.post("/logout");
   }

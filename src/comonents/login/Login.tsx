@@ -10,6 +10,7 @@ import { RootState, AppDispatch } from "../../state/store";
 const Login = () => {
   const dispatch: AppDispatch = useDispatch();
   const { error, status } = useSelector((state: RootState) => state.auth);
+
   const login = async (username: string, password: string) => {
     dispatch(authenticateUser({ username, password }));
   };
@@ -17,8 +18,8 @@ const Login = () => {
   return (
     <>
       {status === "loading" ? <p>loading...</p> : null}
-      {status === "rejected" ? <p>error...</p> : null}
-      {error && <h1>error</h1>}
+      {status === "rejected" ? <p>error</p> : null}
+
       <Formik
         initialValues={{ username: "", password: "" }}
         validate={(values) => {
@@ -31,10 +32,8 @@ const Login = () => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            login(values.username, values.password);
-            setSubmitting(false);
-          });
+          login(values.username, values.password);
+          setSubmitting(false);
         }}
       >
         {({

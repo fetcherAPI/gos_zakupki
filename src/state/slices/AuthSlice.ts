@@ -1,22 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import USER_ROLES from "../../models/enums/userRoles";
 import { UserData } from "../../models/types";
+import AuthService from "../../services/AuthService";
+import { checkUserRole } from "../../utils/checkUserRole";
 
 export const authenticateUser = createAsyncThunk(
   "auth/authenticateUser",
   async ({ username, password }: UserData, { rejectWithValue }) => {
     try {
-      const responcse = await axios.post(
+      const response = await axios.post(
         "http://10.100.4.164:8087/authenticate",
         {
           username,
           password,
         }
       );
-      return responcse.data;
+      checkUserRole(response.data);
+      return response.data;
     } catch (error: any) {
       console.log("error", error.message);
       return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const checkAuth = createAsyncThunk(
+  "auth/checkAuth",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await AuthService.chekAuth();
+      checkUserRole(response.data);
+    } catch (error) {
+      return rejectWithValue(error);
     }
   }
 );
@@ -54,6 +70,13 @@ export const authSlice = createSlice({
       })
       .addCase(authenticateUser.fulfilled, (state, action) => {
         state.status = "resolve";
+        if (
+          USER_ROLES.PROCURING_ENTITY === action.payload.role ||
+          USER_ROLES.PROCURING_ENTITY === action.payload.role ||
+          USER_ROLES.PROCURING_ENTITY === action.payload.role
+        ) {
+          state.isAuth = true;
+        }
         state.user = action.payload;
       })
       .addCase(authenticateUser.rejected, (state, action) => {
