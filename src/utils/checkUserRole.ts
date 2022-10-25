@@ -7,9 +7,7 @@ export const checkUserRole = (data: AuthResponce) => {
     USER_ROLES.PROCURING_ENTITY_HEAD === data.role ||
     USER_ROLES.PROCURING_ENTITY_MANAGER === data.role
   ) {
-    localStorage.setItem("authentication", data.token);
-  } else {
-    localStorage.removeItem("authentication");
-    throw new Error("role is not correct");
+    return true;
   }
+  return false;
 };
