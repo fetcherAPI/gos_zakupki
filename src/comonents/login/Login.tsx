@@ -18,7 +18,7 @@ const Login = () => {
   return (
     <>
       {status === "loading" ? <p>loading...</p> : null}
-      {status === "rejected" ? <p>error</p> : null}
+      {status === "rejected" ? <p>{error}</p> : null}
 
       <Formik
         initialValues={{ username: "", password: "" }}

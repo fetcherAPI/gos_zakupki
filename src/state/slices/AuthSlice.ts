@@ -19,7 +19,6 @@ export const authenticateUser = createAsyncThunk(
       checkUserRole(response.data);
       return response.data;
     } catch (error: any) {
-      console.log("error", error.message);
       return rejectWithValue(error.message);
     }
   }
@@ -40,7 +39,7 @@ export const checkAuth = createAsyncThunk(
 export interface IAouthState {
   isAuth: boolean;
   status: string | null;
-  error: string | unknown | null;
+  error: string | null;
   user: object | null;
 }
 
@@ -79,7 +78,7 @@ export const authSlice = createSlice({
         }
         state.user = action.payload;
       })
-      .addCase(authenticateUser.rejected, (state, action) => {
+      .addCase(authenticateUser.rejected, (state, action: any) => {
         state.status = "rejected";
         state.error = action.payload;
       });
