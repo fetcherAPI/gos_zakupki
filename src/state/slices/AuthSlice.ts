@@ -1,24 +1,41 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import USER_ROLES from "../../models/enums/userRoles";
-import { UserData } from "../../models/types";
-import AuthService from "../../services/AuthService";
-import { checkUserRole } from "../../utils/checkUserRole";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RefreshResponce } from "../../models/response/AuthResponse";
+import CheckRefershTokenService from "../../services/AuthService";
+interface UserUnknownState {
+  status: "unknown";
+}
+
+interface ServerUnreachable {
+  status: "server-unreachable";
+}
+
+interface LoggedOut {
+  status: "logged-out";
+}
+
+interface LoggedIn {
+  status: "logged-in";
+  response: RefreshResponce;
+}
+
+type UserStatus = UserUnknownState | ServerUnreachable | LoggedOut | LoggedIn;
 
 export interface IAouthState {
   isAuth: boolean;
+  userStatus: UserStatus;
   isLoading: boolean;
-  error: string | null;
-  userData: object | null;
-  message: string;
+  error: any;
+  userRole: string;
 }
 
 const initialState: IAouthState = {
+  userStatus: {
+    status: "unknown",
+  },
   isAuth: false,
   isLoading: false,
   error: null,
-  userData: null,
-  message: "",
+  userRole: "",
 };
 
 export const authSlice = createSlice({
@@ -29,7 +46,7 @@ export const authSlice = createSlice({
       state.isAuth = action.payload;
     },
     setUserData(state, action) {
-      state.userData = action.payload;
+      state.userRole = action.payload;
     },
     setIsLoading(state, action) {
       state.isLoading = action.payload;
@@ -37,13 +54,13 @@ export const authSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
-    setMessage(state, action) {
-      state.message = action.payload;
+    setUserRole(state, action) {
+      state.userRole = action.payload;
     },
   },
 });
 
-export const { setIsAuth, setError, setMessage, setIsLoading, setUserData } =
+export const { setIsAuth, setError, setUserRole, setIsLoading, setUserData } =
   authSlice.actions;
 
 export default authSlice.reducer;

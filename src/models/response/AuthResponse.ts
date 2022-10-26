@@ -1,4 +1,4 @@
-export interface AuthResponce {
+export interface RefreshResponce {
   token: string;
   type: string;
   role: string;

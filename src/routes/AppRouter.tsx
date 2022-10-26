@@ -4,10 +4,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { privateRoutes, publicRoutes, RouteNames } from "./index";
 import { RootState } from "../state/store";
 import { tokenAvailability } from "../utils/tokenAvailability";
+import { isUserRoleCorrect } from "../utils/checkUserRole";
 
 const AppRouter = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
-  return isAuth || tokenAvailability() ? (
+  return isAuth ||
+    (tokenAvailability() && isUserRoleCorrect("procuring_entity")) ? (
     <Routes>
       {privateRoutes.map((route) => (
         <Route
@@ -27,8 +29,7 @@ const AppRouter = () => {
           key={route.path}
         />
       ))}
-
-      <Route path='*' element={<Navigate to={RouteNames.LOGIN} replace />} />
+      <Route path='*' element={<Navigate to={RouteNames.MAIN} replace />} />
     </Routes>
   );
 };

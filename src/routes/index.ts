@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "../comonents/sidebar";
-import Login from "../comonents/login";
 import App from "../App";
+import Gotologin from "../comonents/Redirect/Gotologin";
 
 export interface IRoute {
   path: string;
@@ -9,16 +9,16 @@ export interface IRoute {
 }
 
 export enum RouteNames {
-  LOGIN = "/login",
   SIDEBAR = "/sidebar",
+  APP = "/app",
   MAIN = "/",
 }
 
 export const privateRoutes: IRoute[] = [
   { path: RouteNames.SIDEBAR, component: Sidebar },
-  { path: RouteNames.MAIN, component: App },
+  { path: RouteNames.APP, component: App },
 ];
 
 export const publicRoutes: IRoute[] = [
-  { path: RouteNames.LOGIN, component: Login },
+  { path: RouteNames.MAIN, component: Gotologin },
 ];

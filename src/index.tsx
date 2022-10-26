@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename='/sopp'>
     <Provider store={store}>
       <React.StrictMode>
         <AppRouter />

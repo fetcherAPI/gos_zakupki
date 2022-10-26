@@ -1,13 +1,5 @@
-import USER_ROLES from "../models/enums/userRoles";
-import { AuthResponce } from "../models/response/AuthResponse";
+import { UserRoles, UserRole } from "../models/enums/userRoles";
 
-export const checkUserRole = (data: AuthResponce) => {
-  if (
-    USER_ROLES.PROCURING_ENTITY === data.role ||
-    USER_ROLES.PROCURING_ENTITY_HEAD === data.role ||
-    USER_ROLES.PROCURING_ENTITY_MANAGER === data.role
-  ) {
-    return true;
-  }
-  return false;
+export const isUserRoleCorrect = (value: string): value is UserRole => {
+  return UserRoles.includes(value as UserRole);
 };
