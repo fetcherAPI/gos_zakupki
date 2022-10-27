@@ -6,7 +6,7 @@ import { RootState } from "../state/store";
 import { tokenAvailability } from "../utils/tokenAvailability";
 import { isUserRoleCorrect } from "../utils/checkUserRole";
 
-const AppRouter = () => {
+export const AppRouter = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
   return isAuth ||
     (tokenAvailability() && isUserRoleCorrect("procuring_entity")) ? (
@@ -18,7 +18,6 @@ const AppRouter = () => {
           key={route.path}
         />
       ))}
-      <Route path='*' element={<Navigate to={RouteNames.SIDEBAR} replace />} />
     </Routes>
   ) : (
     <Routes>
@@ -33,5 +32,3 @@ const AppRouter = () => {
     </Routes>
   );
 };
-
-export default React.memo(AppRouter);
