@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { RefreshResponce } from "../../models/response/AuthResponse";
-import CheckRefershTokenService from "../../services/AuthService";
+
 interface UserUnknownState {
   status: "unknown";
 }
