@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { RouteNames } from "../../routes";
 import { CloseBtnIcon } from "../../assets/img/export";
 import { Icon, icons } from "./icons";
+import Switcher from "../../UIComponents/Input/Switcher";
 
 const drawerWidth = 240;
 
@@ -133,6 +134,11 @@ const Sidebar = () => {
             </ListItem>
           ))}
         </List>
+        {open && (
+          <label>
+            <Switcher from={"Рус"} to={"Кыр"} />
+          </label>
+        )}
         <Divider />
       </Drawer>
     </Box>

@@ -7,21 +7,6 @@ export const icons = [
     path: "tender-list",
   },
   {
-    element: <MyAd />,
-    text: "Мои объявления",
-    path: "tender-list",
-  },
-  {
-    element: <MyAd />,
-    text: "Мои объявления",
-    path: "tender-list",
-  },
-  {
-    element: <MyAd />,
-    text: "Мои объявления",
-    path: "tender-list",
-  },
-  {
     element: <CloseBtnIcon />,
     text: "Мои жалобы",
     path: "/settings",

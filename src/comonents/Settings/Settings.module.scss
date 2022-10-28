@@ -3,3 +3,12 @@
   background-color: #fff;
   width: 100%;
 }
+
+.label {
+  margin-left: 10px;
+  text-decoration: underline;
+  color: blue;
+  input {
+    visibility: hidden;
+  }
+}

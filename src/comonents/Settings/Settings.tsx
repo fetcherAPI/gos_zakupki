@@ -7,6 +7,8 @@ import { TabPanel } from "@mui/lab";
 import classes from "../../scss/global.module.scss";
 import styles from "./Settings.module.scss";
 import { Invoice } from "../Invoice/Invoice";
+import { MyDocuments } from "./MyDocuments";
+import { AccountControl } from "./AccountControl";
 
 type Props = {};
 
@@ -40,10 +42,14 @@ export const Settings = (props: Props) => {
             <Invoice />
           </TabPanel>
           <TabPanel value='2'>Item Two</TabPanel>
-          <TabPanel value='3'>Item Three</TabPanel>
+          <TabPanel value='3'>
+            <AccountControl />
+          </TabPanel>
           <TabPanel value='4'>Item Three</TabPanel>
           <TabPanel value='5'>Item Three</TabPanel>
-          <TabPanel value='6'>Item Three</TabPanel>
+          <TabPanel value='6'>
+            <MyDocuments />
+          </TabPanel>
           <TabPanel value='7'>Item Three</TabPanel>
           <TabPanel value='8'>Item Three</TabPanel>
         </TabContext>
