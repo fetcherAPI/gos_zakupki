@@ -1,7 +1,4 @@
 import "./App.css";
-import Sidebar from "./comonents/sidebar";
-import Box from "@mui/material/Box";
-import { AppRouter } from "./routes/AppRouter";
 
 function App() {
   return (

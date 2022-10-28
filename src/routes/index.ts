@@ -4,6 +4,7 @@ import App from "../App";
 import Gotologin from "../comonents/Redirect/Gotologin";
 import { Invoice } from "../comonents/Invoice/Invoice";
 import TenderList from "../comonents/TenderList/TenderList";
+import { Settings } from "../comonents/Settings/Settings";
 
 export interface IRoute {
   path: string;
@@ -14,7 +15,8 @@ export enum RouteNames {
   SIDEBAR = "/sidebar",
   APP = "/app",
   INVIOS = "/invios",
-  TENDER_LIST = "tender-list",
+  TENDER_LIST = "/tender-list",
+  SETTINGS = "/settings",
   MAIN = "/",
 }
 
@@ -23,6 +25,7 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.APP, component: App },
   { path: RouteNames.TENDER_LIST, component: TenderList },
   { path: RouteNames.INVIOS, component: Invoice },
+  { path: RouteNames.SETTINGS, component: Settings },
 ];
 
 export const publicRoutes: IRoute[] = [

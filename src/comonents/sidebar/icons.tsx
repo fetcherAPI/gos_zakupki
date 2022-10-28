@@ -1,5 +1,4 @@
 import { CloseBtnIcon, MyAd } from "../../assets/img/export";
-import { RouteNames } from "../../routes";
 
 export const icons = [
   {
@@ -8,9 +7,24 @@ export const icons = [
     path: "tender-list",
   },
   {
+    element: <MyAd />,
+    text: "Мои объявления",
+    path: "tender-list",
+  },
+  {
+    element: <MyAd />,
+    text: "Мои объявления",
+    path: "tender-list",
+  },
+  {
+    element: <MyAd />,
+    text: "Мои объявления",
+    path: "tender-list",
+  },
+  {
     element: <CloseBtnIcon />,
     text: "Мои жалобы",
-    path: "/invios",
+    path: "/settings",
   },
 ];
 
