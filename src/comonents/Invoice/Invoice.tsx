@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 type Props = {};
 
 export const Invoice = (props: Props) => {

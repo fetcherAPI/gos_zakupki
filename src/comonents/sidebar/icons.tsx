@@ -5,7 +5,7 @@ export const icons = [
   {
     element: <MyAd />,
     text: "Мои объявления",
-    path: "/invios",
+    path: "tender-list",
   },
   {
     element: <CloseBtnIcon />,

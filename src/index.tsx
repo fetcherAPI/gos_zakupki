@@ -17,8 +17,12 @@ root.render(
   <BrowserRouter basename='/sopp'>
     <Provider store={store}>
       <React.StrictMode>
-        <App />
-        <AppRouter />
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+            <AppRouter />
+          </Box>
+        </Box>
       </React.StrictMode>
     </Provider>
   </BrowserRouter>

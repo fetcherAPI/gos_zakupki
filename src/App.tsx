@@ -6,12 +6,7 @@ import { AppRouter } from "./routes/AppRouter";
 function App() {
   return (
     <div className='wrapper'>
-      <Box sx={{ display: "flex" }}>
-        <Sidebar />
-        <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
-          <AppRouter />
-        </Box>
-      </Box>
+      <h1>fjdklsjk</h1>
     </div>
   );
 }
