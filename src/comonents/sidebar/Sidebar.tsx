@@ -35,7 +35,7 @@ const Sidebar = () => {
       <Drawer variant='permanent' open={open}>
         {open ? (
           <DrawerHeader>
-            <Typography variant='h6' noWrap>
+            <Typography variant='h5' noWrap>
               Портал госЗакупок
             </Typography>
             <IconButton onClick={handleDrawerClose}>

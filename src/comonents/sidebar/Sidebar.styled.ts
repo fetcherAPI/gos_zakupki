@@ -2,7 +2,7 @@ import { styled, Theme, CSSObject } from "@mui/material/styles";
 
 import MuiDrawer from "@mui/material/Drawer";
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 export const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -28,7 +28,7 @@ export const closedMixin = (theme: Theme): CSSObject => ({
 export const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-end",
+  justifyContent: "space-between",
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
 }));

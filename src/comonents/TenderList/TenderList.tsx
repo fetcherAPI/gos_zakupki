@@ -14,7 +14,7 @@ const TenderList = (props: Props) => {
         <p>{`кабинет`}</p>
         <h1>Создать объявления</h1>
       </div>
-      <Stack direction='row' spacing={2}>
+      <Stack direction='row' sx={{ flexWrap: "wrap" }} rowGap={2} columnGap={2}>
         <TextField
           id='outlined-basic'
           label='Outlined'
@@ -71,7 +71,7 @@ const TenderList = (props: Props) => {
         />
       </Stack>
       <br />
-      <Stack direction='row' spacing={2}>
+      <Stack direction='row' sx={{ flexWrap: "wrap" }} rowGap={2} columnGap={2}>
         <TextField
           id='outlined-basic'
           label='Outlined'

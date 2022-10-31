@@ -6,7 +6,8 @@ import { tokenAvailability } from "../utils/tokenAvailability";
 import { isUserRoleCorrect } from "../utils/checkUserRole";
 
 export const AppRouter = () => {
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { isAuth, userRole } = useSelector((state: RootState) => state.auth);
+
   return isAuth ||
     (tokenAvailability() && isUserRoleCorrect("procuring_entity")) ? (
     <Routes>

@@ -42,7 +42,7 @@ export class PublicTenderControllerService {
   public static get1(id: string): CancelablePromise<Blob> {
     return __request(OpenAPI, {
       method: "GET",
-      headers: ["User-Agent", "samat"],
+      headers: ["User-Agent"],
       url: "/public_tender/downloadAll/{id}",
       path: {
         id: id,
