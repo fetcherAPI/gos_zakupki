@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { privateRoutes, publicRoutes, RouteNames } from "./index";
@@ -7,6 +6,7 @@ import { tokenAvailability } from "../utils/tokenAvailability";
 import { isUserRoleCorrect } from "../utils/checkUserRole";
 
 export const AppRouter = () => {
+  console.log("mount");
   const { isAuth } = useSelector((state: RootState) => state.auth);
   return isAuth ||
     (tokenAvailability() && isUserRoleCorrect("procuring_entity")) ? (
@@ -18,6 +18,7 @@ export const AppRouter = () => {
           key={route.path}
         />
       ))}
+      <Route path='*' element={<Navigate to={RouteNames.MAIN} replace />} />
     </Routes>
   ) : (
     <Routes>

@@ -12,8 +12,6 @@ export interface IRoute {
 }
 
 export enum RouteNames {
-  SIDEBAR = "/sidebar",
-  APP = "/app",
   INVIOS = "/invios",
   TENDER_LIST = "/tender-list",
   SETTINGS = "/settings",
@@ -21,8 +19,6 @@ export enum RouteNames {
 }
 
 export const privateRoutes: IRoute[] = [
-  { path: RouteNames.SIDEBAR, component: Sidebar },
-  { path: RouteNames.APP, component: App },
   { path: RouteNames.TENDER_LIST, component: TenderList },
   { path: RouteNames.INVIOS, component: Invoice },
   { path: RouteNames.SETTINGS, component: Settings },
