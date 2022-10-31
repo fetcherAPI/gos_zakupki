@@ -1,6 +1,4 @@
 import React from "react";
-import Sidebar from "../comonents/sidebar";
-import App from "../App";
 import Gotologin from "../comonents/Redirect/Gotologin";
 import { Invoice } from "../comonents/Invoice/Invoice";
 import TenderList from "../comonents/TenderList/TenderList";

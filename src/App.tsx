@@ -1,22 +1,21 @@
-import { AppRouter } from "./routes/AppRouter";
-import Box from "@mui/material/Box";
-import classes from "./index.module.scss";
-import Sidebar from "./comonents/sidebar";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
+import { MainPage } from "./pages/MainPage";
+import ServerErrorPage from "./pages/ServerErrorPage";
+import { checkRefreshTokenAsync } from "./state/slices/AuthSlice";
+import { AppDispatch, RootState } from "./state/store";
 
 function App() {
-  return (
-    <Box sx={{ display: "flex" }} className={classes.box}>
-      <Sidebar />
-      <Box
-        component='main'
-        className='box'
-        sx={{ flexGrow: 1, p: 3, width: 100 }}
-      >
-        <AppRouter />
-      </Box>
-    </Box>
-  );
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkRefreshTokenAsync());
+  }, []);
+
+  const { status } = useSelector((state: RootState) => state.auth);
+  // const status = "resolve";
+  return status === "resolve" ? <MainPage /> : <ServerErrorPage />;
 }
 
 export default App;
