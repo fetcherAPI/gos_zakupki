@@ -1,4 +1,15 @@
-import { CloseBtnIcon, MyAd } from "../../assets/img/export";
+import {
+  MyAd,
+  Smeta,
+  BudgetOughts,
+  CancelBuy,
+  Complaints,
+  Contracts,
+  Logo,
+  Notice,
+  PlanGozZkupok,
+  Provider,
+} from "../../assets/img/export";
 
 export const icons = [
   {
@@ -7,8 +18,48 @@ export const icons = [
     path: "tender-list",
   },
   {
-    element: <CloseBtnIcon />,
+    element: <Smeta />,
+    text: "Смета",
+    path: "/settings",
+  },
+  {
+    element: <PlanGozZkupok />,
+    text: "Планирование гоз.закупок",
+    path: "/plan-gz",
+  },
+  {
+    element: <Contracts />,
+    text: "Контракты",
+    path: "/contracts",
+  },
+  {
+    element: <Notice />,
+    text: "уведомления",
+    path: "/notice",
+  },
+  {
+    element: <Complaints />,
     text: "Мои жалобы",
+    path: "/complaints",
+  },
+  {
+    element: <Provider />,
+    text: "Инициированные поставщики",
+    path: "/provider",
+  },
+  {
+    element: <CancelBuy />,
+    text: "Отмена закупок",
+    path: "/cancel-buy",
+  },
+  {
+    element: <BudgetOughts />,
+    text: "Бюджетные обязательства",
+    path: "/budget-oughts",
+  },
+  {
+    element: <Logo />,
+    text: "Настройки",
     path: "/settings",
   },
 ];

@@ -17,7 +17,7 @@ interface LoggedOut {
 
 interface LoggedIn {
   status: "logged-in";
-  response: RefreshResponce;
+  response?: RefreshResponce;
 }
 
 export type UserStatus =
@@ -33,19 +33,27 @@ export interface IAouthState {
   isLoading: boolean;
   error: any;
   userRole: string;
-  user: RefreshResponce | null;
+  user: RefreshResponce;
 }
 
 const initialState: IAouthState = {
   userStatus: {
-    status: "unknown",
+    status: "logged-in",
   },
   status: "",
   isAuth: false,
   isLoading: false,
   error: null,
   userRole: "",
-  user: null,
+  user: {
+    token:
+      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZfcHJvY3VyaW5nX2VudGl0eSIsImlhdCI6MTY2NzI3Njg5OCwiZXhwIjoxNjY3ODgxNjk4fQ.VgBRRQh79IHXczyDBTDechRTAY7TvEoWxg72xORJLHhmkSPyhhFuvemUqiJPrAKrkqQ4VVFgKw2f6hTLcWxQuA",
+    type: "Bearer",
+    username: "dev_procuring_entity",
+    role: "procuring_entity",
+    currentTime: "2022-11-01T04:28:18.331177313",
+    expiryDate: "2022-11-08T04:28:18.275",
+  },
 };
 
 export const checkRefreshTokenAsync = createAsyncThunk(
@@ -59,6 +67,7 @@ export const checkRefreshTokenAsync = createAsyncThunk(
       }
       throw new Error("роль не совпадает");
     } catch (error) {
+      window.localStorage.removeItem("authentication");
       return rejectWithValue(error);
     }
   }

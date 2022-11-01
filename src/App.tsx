@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MainPage } from "./pages/MainPage";
 import ServerErrorPage from "./pages/ServerErrorPage";
@@ -9,18 +9,29 @@ import "./App.css";
 
 function App() {
   const dispatch: AppDispatch = useDispatch();
+  const { userStatus, user } = useSelector((state: RootState) => state.auth);
+  const [currentTime, setCurrentTime] = useState(Date.now());
 
-  useEffect(() => {
-    dispatch(checkRefreshTokenAsync());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setCurrentTime(Date.now());
+  //   }, 5 * 1000 * 60);
+  //   if (currentTime > Date.parse(user?.expiryDate)) {
+  //     dispatch(checkRefreshTokenAsync());
+  //   }
+  // }, [currentTime, dispatch, user?.expiryDate]);
 
-  const { userStatus } = useSelector((state: RootState) => state.auth);
-  const { status: userStat } = userStatus;
-  if (userStat === "server-unreachable") {
+  // useEffect(() => {
+  //   dispatch(checkRefreshTokenAsync());
+  // }, [dispatch]);
+
+  const { status } = userStatus;
+
+  if (status === "server-unreachable") {
     return <ServerErrorPage />;
-  } else if (userStat === "logged-out") {
+  } else if (status === "logged-out") {
     return <Gotologin />;
-  } else if (userStat === "logged-in") {
+  } else if (status === "logged-in") {
     return <MainPage />;
   } else {
     return <h1>Good </h1>;
