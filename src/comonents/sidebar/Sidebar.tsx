@@ -10,7 +10,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { CloseBtnIcon } from "../../assets/img/export";
 import { Icon, icons } from "./icons";
 import { Drawer } from "./Sidebar.styled";
@@ -56,7 +56,12 @@ const Sidebar = () => {
         <List>
           {icons.map((icon: Icon) => (
             <ListItem key={icon.text} disablePadding sx={{ display: "block" }}>
-              <Link to={icon.path}>
+              <NavLink
+                to={icon.path}
+                className={(navData) =>
+                  navData.isActive ? classes.activeTab : classes.unactiveTab
+                }
+              >
                 <ListItemButton
                   sx={{
                     minHeight: 48,
@@ -78,7 +83,7 @@ const Sidebar = () => {
                     sx={{ opacity: open ? 1 : 0 }}
                   />
                 </ListItemButton>
-              </Link>
+              </NavLink>
             </ListItem>
           ))}
         </List>

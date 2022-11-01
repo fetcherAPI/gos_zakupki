@@ -8,3 +8,7 @@ a {
   text-decoration: none;
   color: $list-text-color;
 }
+
+.activeTab {
+  color: $selected-nav-link-color;
+}

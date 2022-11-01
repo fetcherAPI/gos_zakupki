@@ -6,7 +6,6 @@ import { TabList } from "@mui/lab";
 import { TabPanel } from "@mui/lab";
 import classes from "../../scss/global.module.scss";
 import styles from "./Settings.module.scss";
-import { Invoice } from "../Invoice/Invoice";
 import { MyDocuments } from "./MyDocuments";
 import { AccountControl } from "./AccountControl";
 import { PersonalData } from "./PersonalData";
