@@ -9,6 +9,7 @@ import styles from "./Settings.module.scss";
 import { Invoice } from "../Invoice/Invoice";
 import { MyDocuments } from "./MyDocuments";
 import { AccountControl } from "./AccountControl";
+import { PersonalData } from "./PersonalData";
 
 type Props = {};
 
@@ -24,7 +25,7 @@ export const Settings = (props: Props) => {
         <h1>Настройки</h1>
       </div>
 
-      <Box className={styles.settings} sx={{ flexGrow: 1, p: 3 }}>
+      <Box className={styles.settings} sx={{ flexGrow: 1, p: 0, margin: 0 }}>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList onChange={handleChange} variant='scrollable'>
@@ -39,7 +40,7 @@ export const Settings = (props: Props) => {
             </TabList>
           </Box>
           <TabPanel value='1'>
-            <Invoice />
+            <PersonalData />
           </TabPanel>
           <TabPanel value='2'>Item Two</TabPanel>
           <TabPanel value='3'>

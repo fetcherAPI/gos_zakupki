@@ -1,3 +1,5 @@
+@import "../../scss/vars.scss";
+
 .settings {
   border-radius: 5px;
   background-color: #fff;
@@ -11,4 +13,34 @@
   input {
     visibility: hidden;
   }
+}
+
+.column {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.input_label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: $input-title-color;
+  font-weight: 600;
+}
+
+.input {
+  height: 44px;
+  border: 1px solid #d3e1f1;
+  border-radius: 5px;
+  padding-left: 1%;
+  outline: none;
+  font-size: 1.2rem;
 }

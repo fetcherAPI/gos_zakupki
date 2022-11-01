@@ -1,4 +1,3 @@
-import React from "react";
 import { TextField } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Button } from "@mui/material";
@@ -105,7 +104,7 @@ const TenderList = (props: Props) => {
             backgroundColor: "#F8D043",
           }}
         >
-          Contained
+          Поиск
         </Button>
       </Stack>
       <div className='TendersBlock'></div>

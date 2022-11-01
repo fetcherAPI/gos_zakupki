@@ -15,18 +15,14 @@ import { CloseBtnIcon } from "../../assets/img/export";
 import { Icon, icons } from "./icons";
 import { Drawer } from "./Sidebar.styled";
 import { DrawerHeader } from "./Sidebar.styled";
-import Switcher from "../../UIComponents/Input/Switcher";
 import classes from "./Sidebar.module.scss";
+import Switcher from "../../UIComponents/switch";
 
 const Sidebar = () => {
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const handleDrawer = () => {
+    setOpen((prev) => !prev);
   };
 
   return (
@@ -38,7 +34,7 @@ const Sidebar = () => {
             <Typography variant='h5' noWrap>
               Портал госЗакупок
             </Typography>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton onClick={handleDrawer}>
               <CloseBtnIcon />
             </IconButton>
           </DrawerHeader>
@@ -46,7 +42,7 @@ const Sidebar = () => {
           <IconButton
             color='inherit'
             aria-label='open drawer'
-            onClick={handleDrawerOpen}
+            onClick={handleDrawer}
             edge='start'
             sx={{
               marginRight: -0.5,

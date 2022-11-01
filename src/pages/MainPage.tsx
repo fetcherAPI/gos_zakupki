@@ -10,7 +10,13 @@ export const MainPage = (props: Props) => {
       <Box
         component='main'
         className='box'
-        sx={{ flexGrow: 1, p: 3, width: 100 }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: 100,
+          backgroundColor: "#e8f0f8",
+          height: "100vh",
+        }}
       >
         <AppRouter />
       </Box>
