@@ -1,0 +1,41 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.item {
+  display: flex;
+  gap: 30px;
+  p {
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  display: flex;
+}
+
+.title {
+  align-self: flex-start;
+  width: 15%;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+}
+.date_picker {
+  margin-bottom: 40px;
+}
+
+.checkboxes {
+  gap: 50px;
+  display: flex;
+}
+
+.texarea {
+  width: 160%;
+  border: none;
+  resize: none;
+  border: 1px solid #d3e1f1;
+  border-radius: 5px;
+  outline: none;
+  padding: 16px 10px;
+}

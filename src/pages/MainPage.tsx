@@ -15,7 +15,7 @@ export const MainPage = (props: Props) => {
           p: 3,
           width: 100,
           backgroundColor: "#e8f0f8",
-          height: "100vh",
+          minHeight: "100vh",
         }}
       >
         <AppRouter />
