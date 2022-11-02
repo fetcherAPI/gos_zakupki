@@ -1,0 +1,13 @@
+@import "src/scss/vars";
+
+.wrapper {
+  margin-top: 5%;
+  background-color: $main-color;
+  padding: 30px;
+}
+
+.footer{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
