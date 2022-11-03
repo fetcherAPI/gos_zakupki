@@ -21,7 +21,7 @@ const OrganizationInfo = () => {
     const [value, setValue] = React.useState<Dayjs | null>(null);
     const [selectedFile, setSelectedFile] = useState<any>('')
     const dispatch: AppDispatch = useDispatch()
-    const {nameOfBuying, offerDeadline, FirstImage} = useSelector((state: RootState) => state.organizationInfo)
+    const {nameOfBuying, offerDeadline, FirstImage, bidDeadline} = useSelector((state: RootState) => state.organizationInfo)
 
     const [age, setAge] = React.useState("");
 
@@ -33,9 +33,18 @@ const OrganizationInfo = () => {
         setSelectedFile(e.target.files[0]);
     };
 
-    const handleChange = (newValue: Dayjs | null) => {
-        console.log('date');
-        dispatch(Actions.setOfferDeadline(newValue))
+    const handleChange = (newValue: Dayjs | null, valueFor: string) => {
+        switch (valueFor) {
+            case 'Offer':
+                dispatch(Actions.setOfferDeadline(newValue))
+                break
+            case "Bid" :
+                dispatch(Actions.setBidDeadline(newValue))
+                break
+            default :
+                dispatch(Actions.setOfferDeadline(newValue))
+
+        }
     };
 
     useEffect(() => {
@@ -79,7 +88,9 @@ const OrganizationInfo = () => {
                                             label='Date desktop'
                                             inputFormat='MM/DD/YYYY'
                                             value={offerDeadline}
-                                            onChange={handleChange}
+                                            onChange={(e: any) => {
+                                                handleChange(e, 'Offer')
+                                            }}
                                             renderInput={(params: any) => (
                                                 <TextField
                                                     fullWidth
@@ -99,8 +110,10 @@ const OrganizationInfo = () => {
                                         <DesktopDatePicker
                                             label='Date desktop'
                                             inputFormat='MM/DD/YYYY'
-                                            value={value}
-                                            onChange={handleChange}
+                                            value={bidDeadline}
+                                            onChange={(e: any) => {
+                                                handleChange(e, 'Bid')
+                                            }}
                                             renderInput={(params) => (
                                                 <TextField
                                                     fullWidth
@@ -131,16 +144,16 @@ const OrganizationInfo = () => {
                                     <label>
                                         <p>Кыргызский сом</p>
 
-                                        <Field type='checkbox' name='checked' value='SOM'/>
+                                        <Field type='radio' name='checked' value='SOM' />
                                     </label>
 
                                     <label>
                                         <p>Другая валюта</p>
 
                                         <Field
-                                            type='checkbox'
+                                            type='radio'
                                             name='checked'
-                                            value='OTHTER_CURRENCY'
+                                            value='OTHER_CURRENCY'
                                         />
                                     </label>
                                 </div>
@@ -278,6 +291,7 @@ const OrganizationInfo = () => {
                                 </label>
                             </div>
                         </div>
+                        <button>отпавить</button>
                     </Form>
                 )}
             </Formik>
