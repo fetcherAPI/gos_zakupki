@@ -1,3 +1,4 @@
+@import "../../../scss/vars.scss";
 .form {
   display: flex;
   flex-direction: column;
@@ -48,4 +49,17 @@
 .checkboxes {
   gap: 50px;
   display: flex;
+}
+
+.button_pick_img {
+  color: $main-color;
+  height: 44px;
+  width: 100%;
+  background-color: $img_picker_btn;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  border-radius: 5px;
 }
