@@ -15,12 +15,32 @@
 
 .title {
   align-self: flex-start;
-  width: 15%;
+  text-align: end;
+  width: 20%;
 }
 .content {
   display: flex;
   flex-direction: column;
+  width: 30%;
 }
+@media only screen and (max-width: 1100px) {
+  .title {
+    width: 25%;
+  }
+  .content {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .title {
+    width: 25%;
+  }
+  .content {
+    width: 70%;
+  }
+}
+
 .date_picker {
   margin-bottom: 40px;
 }
@@ -28,14 +48,4 @@
 .checkboxes {
   gap: 50px;
   display: flex;
-}
-
-.texarea {
-  width: 160%;
-  border: none;
-  resize: none;
-  border: 1px solid #d3e1f1;
-  border-radius: 5px;
-  outline: none;
-  padding: 16px 10px;
 }
