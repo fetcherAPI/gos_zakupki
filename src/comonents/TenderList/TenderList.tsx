@@ -1,13 +1,7 @@
 import {Button, Pagination, Stack, TextField} from "@mui/material";
 import classes from "../../scss/global.module.scss";
-import {styled} from '@mui/system';
 
 type Props = {};
-
-
-const myButton = styled(Button)({
-    color: 'red'
-})
 
 const TenderList = (props: Props) => {
     return (

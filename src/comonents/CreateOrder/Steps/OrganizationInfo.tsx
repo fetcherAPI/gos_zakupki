@@ -17,25 +17,44 @@ import {AppDispatch, RootState} from "../../../state/store";
 
 
 const OrganizationInfo = () => {
-    const [value, setValue] = React.useState<Dayjs | null>(null);
-    const [selectedFile, setSelectedFile] = useState<any>('')
+    const [FirstSelectedFile, setFirstSelectedFile] = useState<any>()
+    const [SecondSelectedFile, setSecondSelectedFile] = useState<any>()
     const dispatch: AppDispatch = useDispatch()
     const {
         nameOfBuying,
         offerDeadline,
         FirstImage,
-        bidDeadline
+        SecondImage,
+        bidDeadline,
+        sourcesOfFinancing,
+        ReasonsForChoosingRestrictedMethod,
+        ChoiceOfApplication
     } = useSelector((state: RootState) => state.organizationInfo)
 
     const [age, setAge] = React.useState("");
 
     const handleChangeSelect = (event: SelectChangeEvent) => {
         setAge(event.target.value);
+        dispatch(Actions.setChoiceOfApplication(event.target.value))
     };
 
-    const handleChangeSelectImg = (e: any) => {
-        setSelectedFile(e.target.files[0]);
+    const handleChangeSelectImg = (e: any, imgFor: string) => {
+        switch (imgFor) {
+
+            case 'first':
+                setFirstSelectedFile(e.target.files[0])
+                break;
+            /*case "second" :
+                setSecondSelectedFile(e.target.files[0]);
+                break;*/
+            default :
+        }
+        setFirstSelectedFile(e.target.files[0]);
     };
+
+    const handleChangeSelectSecondFile = (e: any) => {
+        setSecondSelectedFile(e.target.files[0]);
+    }
 
     const handleChange = (newValue: Dayjs | null, valueFor: string) => {
         switch (valueFor) {
@@ -51,9 +70,15 @@ const OrganizationInfo = () => {
         }
     };
 
+
     useEffect(() => {
-        dispatch(Actions.setFirstImage(selectedFile))
-    }, [selectedFile])
+        dispatch(Actions.setFirstImage(FirstSelectedFile))
+    }, [FirstSelectedFile])
+
+    useEffect(() => {
+        dispatch(Actions.setSecondImage(SecondSelectedFile))
+    }, [SecondSelectedFile])
+
 
     return (
         <>
@@ -202,7 +227,8 @@ const OrganizationInfo = () => {
                         <TextField
                             fullWidth
                             required
-                            onChange={(e) => console.log(e)}
+                            value={sourcesOfFinancing}
+                            onChange={(e) => dispatch(Actions.setSourcesOfFinancing(e.target.value))}
                             placeholder='MultiLine with rows: 2 and rowsMax: 4'
                             multiline
                         />
@@ -218,7 +244,8 @@ const OrganizationInfo = () => {
                         <TextField
                             fullWidth
                             required
-                            onChange={(e) => console.log(e)}
+                            value={ReasonsForChoosingRestrictedMethod}
+                            onChange={(e) => dispatch(Actions.setReasonsForChoosingRestrictedMethod(e.target.value))}
                             placeholder='MultiLine with rows: 2 and rowsMax: 4'
                             multiline
                         />
@@ -232,20 +259,21 @@ const OrganizationInfo = () => {
                         метода
                     </p>
                     <div className={classes.content}>
-                        <label htmlFor='upload-photo'>
+                        <label htmlFor='upload-first-photo'>
                             <input
                                 style={{display: "none"}}
-                                id='upload-photo'
-                                name='upload-photo'
+                                id='upload-first-photo'
+                                required
+                                name='upload-first-photo'
                                 type='file'
-                                onChange={(e) => handleChangeSelectImg(e)}
+                                onChange={(e) => handleChangeSelectImg(e, 'first')}
                             />
                             <div className={classes.button_pick_img}>
                                 <ImgPickerIcon/>
                                 Прикрепить
                             </div>
                             {
-                                FirstImage.name && `${FirstImage.name}`
+                                FirstImage?.name && `${FirstImage.name}`
                             }
 
                         </label>
@@ -259,16 +287,16 @@ const OrganizationInfo = () => {
                     </p>
                     <div className={classes.content}>
                         <FormControl size='small'>
-                            <InputLabel id='demo-select-small'>Age</InputLabel>
+                            <InputLabel id='demo-select-small'>Выбрать </InputLabel>
                             <Select
                                 labelId='demo-select-small'
                                 id='demo-select-small'
-                                value={age}
+                                value={ChoiceOfApplication}
                                 label='Age'
                                 onChange={handleChangeSelect}
                             >
                                 <MenuItem value=''>
-                                    <em>None</em>
+                                    <em>Нет</em>
                                 </MenuItem>
                                 <MenuItem value={10}>Ten</MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
@@ -285,17 +313,22 @@ const OrganizationInfo = () => {
                         метода
                     </p>
                     <div className={classes.content}>
-                        <label htmlFor='upload-photo'>
+                        <label htmlFor='upload-second-photo'>
                             <input
                                 style={{display: "none"}}
-                                id='upload-photo'
-                                name='upload-photo'
+                                required
+                                id='upload-second-photo'
+                                name='upload-second-photo'
                                 type='file'
+                                onChange={(e) => handleChangeSelectSecondFile(e)}
                             />
                             <div className={classes.button_pick_img}>
                                 <ImgPickerIcon/>
                                 Прикрепить
                             </div>
+                            {
+                                SecondImage?.name && `${SecondImage.name}`
+                            }
                         </label>
                     </div>
                 </div>

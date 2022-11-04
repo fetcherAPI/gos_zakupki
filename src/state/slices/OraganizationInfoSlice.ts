@@ -9,7 +9,7 @@ interface IOrganizationInfo<T> {
     sourcesOfFinancing: T,
     ReasonsForChoosingRestrictedMethod: T,
     FirstImage: T | any,
-    SecondImage: T,
+    SecondImage: T | any,
     ChoiceOfApplication: T
 }
 
@@ -53,8 +53,7 @@ export const organizationInfoSlice = createSlice({
         setReasonsForChoosingRestrictedMethod(state, action) {
             state.ReasonsForChoosingRestrictedMethod = action.payload
         },
-        setFirstImage(state, action) {
-            console.log(action.payload);
+        setFirstImage(state, action): any {
             state.FirstImage = action.payload
         },
         setSecondImage(state, action) {
