@@ -31,30 +31,17 @@ const OrganizationInfo = () => {
         ChoiceOfApplication
     } = useSelector((state: RootState) => state.organizationInfo)
 
-    const [age, setAge] = React.useState("");
-
-    const handleChangeSelect = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
-        dispatch(Actions.setChoiceOfApplication(event.target.value))
-    };
-
     const handleChangeSelectImg = (e: any, imgFor: string) => {
         switch (imgFor) {
-
             case 'first':
                 setFirstSelectedFile(e.target.files[0])
                 break;
-            /*case "second" :
+            case "second" :
                 setSecondSelectedFile(e.target.files[0]);
-                break;*/
+                break;
             default :
         }
-        setFirstSelectedFile(e.target.files[0]);
     };
-
-    const handleChangeSelectSecondFile = (e: any) => {
-        setSecondSelectedFile(e.target.files[0]);
-    }
 
     const handleChange = (newValue: Dayjs | null, valueFor: string) => {
         switch (valueFor) {
@@ -81,8 +68,6 @@ const OrganizationInfo = () => {
 
 
     return (
-        <>
-
             <form className={classes.form}>
                 <div className={classes.item}>
                     <p className={classes.title}>название закупки</p>
@@ -97,7 +82,6 @@ const OrganizationInfo = () => {
                         />
                     </div>
                 </div>
-
                 <div className={classes.item}>
                     <p className={classes.title}>Сроки</p>
                     <div className={classes.content}>
@@ -148,7 +132,6 @@ const OrganizationInfo = () => {
                         </label>
                     </div>
                 </div>
-
                 <div className={classes.item}>
                     <p className={classes.title}>
                         Валюта предложения <br/> поставщика
@@ -219,8 +202,6 @@ const OrganizationInfo = () => {
                         </div>
                     </div>
                 </div>
-
-
                 <div className={classes.item}>
                     <p className={classes.title}>Источники финансирования</p>
                     <div className={classes.content}>
@@ -234,7 +215,6 @@ const OrganizationInfo = () => {
                         />
                     </div>
                 </div>
-
                 <div className={classes.item}>
                     <p className={classes.title}>
                         Основания для выбора <br/>
@@ -251,7 +231,6 @@ const OrganizationInfo = () => {
                         />
                     </div>
                 </div>
-
                 <div className={classes.item}>
                     <p className={classes.title}>
                         Загрузить обоснование по <br/>
@@ -279,7 +258,6 @@ const OrganizationInfo = () => {
                         </label>
                     </div>
                 </div>
-
                 <div className={classes.item}>
                     <p className={classes.title}>
                         Выбор случая применения <br/>
@@ -293,7 +271,7 @@ const OrganizationInfo = () => {
                                 id='demo-select-small'
                                 value={ChoiceOfApplication}
                                 label='Age'
-                                onChange={handleChangeSelect}
+                                onChange={(e) => dispatch(Actions.setChoiceOfApplication(e.target.value))}
                             >
                                 <MenuItem value=''>
                                     <em>Нет</em>
@@ -305,7 +283,6 @@ const OrganizationInfo = () => {
                         </FormControl>
                     </div>
                 </div>
-
                 <div className={classes.item}>
                     <p className={classes.title}>
                         Загрузить обоснование по <br/>
@@ -320,7 +297,7 @@ const OrganizationInfo = () => {
                                 id='upload-second-photo'
                                 name='upload-second-photo'
                                 type='file'
-                                onChange={(e) => handleChangeSelectSecondFile(e)}
+                                onChange={(e) => handleChangeSelectImg(e, 'second')}
                             />
                             <div className={classes.button_pick_img}>
                                 <ImgPickerIcon/>
@@ -334,8 +311,6 @@ const OrganizationInfo = () => {
                 </div>
                 <button>отпавить</button>
             </form>
-
-        </>
     );
 };
 
