@@ -1,11 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RefreshResponce } from "../../models/response/RefreshResponse";
-import CheckRefershTokenService from "../../services/AuthService";
+import CheckRefreshTokenService from "../../services/AuthService";
 import { isUserRoleCorrect } from "../../utils/checkUserRole";
 
 interface UserUnknownState {
   status: "unknown";
 }
+
+interface StatusPending {
+  status: 'pending'
+}
+interface StatusResolve {
+  status: 'resolve'
+}
+interface StatusRejected {
+  status: 'rejected'
+}
+
+type ResponseStatus = StatusResolve | StatusRejected | StatusPending | ''
+
 
 interface ServerUnreachable {
   status: "server-unreachable";
@@ -26,7 +39,7 @@ export type UserStatus =
   | LoggedOut
   | LoggedIn;
 
-export interface IAouthState {
+export interface IAuthState {
   userStatus: UserStatus;
   status: string;
   isAuth: boolean;
@@ -36,7 +49,7 @@ export interface IAouthState {
   user: RefreshResponce;
 }
 
-const initialState: IAouthState = {
+const initialState: IAuthState = {
   userStatus: {
     status: "logged-in",
   },
@@ -60,7 +73,7 @@ export const checkRefreshTokenAsync = createAsyncThunk(
   "auth/checkAuth",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await CheckRefershTokenService.chekAuth();
+      const response = await CheckRefreshTokenService.chekAuth();
       if (isUserRoleCorrect(response.data.role)) {
         window.localStorage.setItem("authentication", response.data.token);
         return response.data;
@@ -96,7 +109,7 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(checkRefreshTokenAsync.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
         state.error = null;
       })
       .addCase(checkRefreshTokenAsync.fulfilled, (state, action) => {

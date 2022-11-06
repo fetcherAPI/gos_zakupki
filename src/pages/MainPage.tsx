@@ -1,10 +1,14 @@
 import { AppRouter } from "../routes/AppRouter";
 import Box from "@mui/material/Box";
 import Sidebar from "../comonents/sidebar";
+import {useAppSelector} from "../hook/redux";
 type Props = {};
 
 export const MainPage = (props: Props) => {
-  return (
+    const {status} = useAppSelector(state => state.auth)
+    console.log(status);
+    if(status === 'loading')  return  <h1>Loading</h1>
+    return (
     <Box sx={{ display: "flex" }} className='box'>
       <Sidebar />
       <Box

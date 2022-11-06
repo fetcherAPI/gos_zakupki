@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { checkRefreshTokenAsync } from "../state/slices/AuthSlice";
-import { AppDispatch, RootState } from "../state/store";
+import {useAppDispatch, useAppSelector} from "../hook/redux";
 
 type Props = {};
 
 const ServerErrorPage = (props: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [time, setTime] = useState(new Date().getTime());
-  const { userStatus } = useSelector((state: RootState) => state.auth);
+  const { userStatus, status: ResponseStatus } = useAppSelector((state) => state.auth);
   const { status } = userStatus;
 
   useEffect(() => {
@@ -17,12 +16,13 @@ const ServerErrorPage = (props: Props) => {
     setTimeout(() => {
       const now = new Date().getTime();
       setTime(now);
-    }, 60000 * 5);
+    },  60000 * 5 );
   }, [time, dispatch]);
 
   return (
     <div>
       <h1>Сервер не отвечает</h1>
+      {ResponseStatus === 'loading' ? 'loading//' : 'error'}
       {status === "server-unreachable" && <p>загрузка сервер...</p>}
     </div>
   );
