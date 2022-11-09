@@ -1,13 +1,13 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import classes from "./Settings.module.scss";
 
 type Props = {};
 
 export const MyDocuments = (props: Props) => {
     const [selectedFile, setSelectedFile] = useState();
-    const handleChange = (e: any) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        // @ts-ignore
         setSelectedFile(e.target.files[0]);
-        console.log("e.target.value", e.target.files);
     };
 
     return (
@@ -15,7 +15,7 @@ export const MyDocuments = (props: Props) => {
             <p>Загрузите документ для дальнейшего использования его в системе</p>
             <label className={classes.label}>
                 Загрузить
-                <input type='file' onChange={(e) => handleChange(e)}/>
+                <input required={true} type='file' onChange={handleChange}/>
             </label>
         </div>
     );
