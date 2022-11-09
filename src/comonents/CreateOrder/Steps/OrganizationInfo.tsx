@@ -12,13 +12,12 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import * as Actions from "../../../state/slices/OraganizationInfoSlice";
-import {useAppDispatch, useAppSelector} from "../../../hook/redux";
-
+import {useAppDispatch, useAppSelector} from "../../../hook/reduxHooks";
 
 const OrganizationInfo = () => {
-    const [FirstSelectedFile, setFirstSelectedFile] = useState<any>()
-    const [SecondSelectedFile, setSecondSelectedFile] = useState<any>()
-    const dispatch = useAppDispatch()
+    const [FirstSelectedFile, setFirstSelectedFile] = useState<any>();
+    const [SecondSelectedFile, setSecondSelectedFile] = useState<any>();
+    const dispatch = useAppDispatch();
     const {
         nameOfBuying,
         offerDeadline,
@@ -27,44 +26,41 @@ const OrganizationInfo = () => {
         bidDeadline,
         sourcesOfFinancing,
         ReasonsForChoosingRestrictedMethod,
-        ChoiceOfApplication
-    } = useAppSelector((state) => state.organizationInfo)
+        ChoiceOfApplication,
+    } = useAppSelector((state) => state.organizationInfo);
 
     const handleChangeSelectImg = (e: any, imgFor: string) => {
         switch (imgFor) {
-            case 'first':
-                setFirstSelectedFile(e.target.files[0])
+            case "first":
+                setFirstSelectedFile(e.target.files[0]);
                 break;
-            case "second" :
+            case "second":
                 setSecondSelectedFile(e.target.files[0]);
                 break;
-            default :
+            default:
         }
     };
 
     const handleChange = (newValue: Dayjs | null, valueFor: string) => {
         switch (valueFor) {
-            case 'Offer':
-                dispatch(Actions.setOfferDeadline(newValue))
-                break
-            case "Bid" :
-                dispatch(Actions.setBidDeadline(newValue))
-                break
-            default :
-                dispatch(Actions.setOfferDeadline(newValue))
-
+            case "Offer":
+                dispatch(Actions.setOfferDeadline(newValue));
+                break;
+            case "Bid":
+                dispatch(Actions.setBidDeadline(newValue));
+                break;
+            default:
+                dispatch(Actions.setOfferDeadline(newValue));
         }
     };
 
+    useEffect(() => {
+        dispatch(Actions.setFirstImage(FirstSelectedFile));
+    }, [FirstSelectedFile]);
 
     useEffect(() => {
-        dispatch(Actions.setFirstImage(FirstSelectedFile))
-    }, [FirstSelectedFile])
-
-    useEffect(() => {
-        dispatch(Actions.setSecondImage(SecondSelectedFile))
-    }, [SecondSelectedFile])
-
+        dispatch(Actions.setSecondImage(SecondSelectedFile));
+    }, [SecondSelectedFile]);
 
     return (
         <form className={classes.form}>
@@ -92,7 +88,7 @@ const OrganizationInfo = () => {
                                 inputFormat='MM/DD/YYYY'
                                 value={offerDeadline}
                                 onChange={(e: any) => {
-                                    handleChange(e, 'Offer')
+                                    handleChange(e, "Offer");
                                 }}
                                 renderInput={(params: any) => (
                                     <TextField
@@ -115,7 +111,7 @@ const OrganizationInfo = () => {
                                 inputFormat='MM/DD/YYYY'
                                 value={bidDeadline}
                                 onChange={(e: any) => {
-                                    handleChange(e, 'Bid')
+                                    handleChange(e, "Bid");
                                 }}
                                 renderInput={(params) => (
                                     <TextField
@@ -137,7 +133,6 @@ const OrganizationInfo = () => {
                 </p>
 
                 <div className={classes.content}>
-
                     <div
                         role='group'
                         aria-labelledby='checkbox-group'
@@ -150,14 +145,19 @@ const OrganizationInfo = () => {
                                 type='radio'
                                 name='checked'
                                 value='SOM'
-                                onChange={(e) => dispatch(Actions.setTypeOfCurrency(e.target.value))}/>
+                                onChange={(e) =>
+                                    dispatch(Actions.setTypeOfCurrency(e.target.value))
+                                }
+                            />
                         </label>
 
                         <label>
                             <p>Другая валюта</p>
 
                             <input
-                                onChange={(e) => dispatch(Actions.setTypeOfCurrency(e.target.value))}
+                                onChange={(e) =>
+                                    dispatch(Actions.setTypeOfCurrency(e.target.value))
+                                }
                                 type='radio'
                                 name='checked'
                                 value='OTHER_CURRENCY'
@@ -173,11 +173,7 @@ const OrganizationInfo = () => {
                 </p>
 
                 <div className={classes.content}>
-
-                    <div
-
-                        className={classes.checkboxes}
-                    >
+                    <div className={classes.checkboxes}>
                         <label>
                             <p>да</p>
 
@@ -185,7 +181,8 @@ const OrganizationInfo = () => {
                                 type='radio'
                                 name='ensured'
                                 value={"YES"}
-                                onChange={(e) => dispatch(Actions.setIsEnsured(e.target.value))}/>
+                                onChange={(e) => dispatch(Actions.setIsEnsured(e.target.value))}
+                            />
                         </label>
 
                         <label>
@@ -208,7 +205,9 @@ const OrganizationInfo = () => {
                         fullWidth
                         required
                         value={sourcesOfFinancing}
-                        onChange={(e) => dispatch(Actions.setSourcesOfFinancing(e.target.value))}
+                        onChange={(e) =>
+                            dispatch(Actions.setSourcesOfFinancing(e.target.value))
+                        }
                         placeholder='MultiLine with rows: 2 and rowsMax: 4'
                         multiline
                     />
@@ -224,7 +223,11 @@ const OrganizationInfo = () => {
                         fullWidth
                         required
                         value={ReasonsForChoosingRestrictedMethod}
-                        onChange={(e) => dispatch(Actions.setReasonsForChoosingRestrictedMethod(e.target.value))}
+                        onChange={(e) =>
+                            dispatch(
+                                Actions.setReasonsForChoosingRestrictedMethod(e.target.value)
+                            )
+                        }
                         placeholder='MultiLine with rows: 2 and rowsMax: 4'
                         multiline
                     />
@@ -244,16 +247,13 @@ const OrganizationInfo = () => {
                             required
                             name='upload-first-photo'
                             type='file'
-                            onChange={(e) => handleChangeSelectImg(e, 'first')}
+                            onChange={(e) => handleChangeSelectImg(e, "first")}
                         />
                         <div className={classes.button_pick_img}>
                             <ImgPickerIcon/>
                             Прикрепить
                         </div>
-                        {
-                            FirstImage?.name && `${FirstImage.name}`
-                        }
-
+                        {FirstImage?.name && `${FirstImage.name}`}
                     </label>
                 </div>
             </div>
@@ -270,7 +270,9 @@ const OrganizationInfo = () => {
                             id='demo-select-small'
                             value={ChoiceOfApplication}
                             label='Age'
-                            onChange={(e) => dispatch(Actions.setChoiceOfApplication(e.target.value))}
+                            onChange={(e) =>
+                                dispatch(Actions.setChoiceOfApplication(e.target.value))
+                            }
                         >
                             <MenuItem value=''>
                                 <em>Нет</em>
@@ -296,15 +298,13 @@ const OrganizationInfo = () => {
                             id='upload-second-photo'
                             name='upload-second-photo'
                             type='file'
-                            onChange={(e) => handleChangeSelectImg(e, 'second')}
+                            onChange={(e) => handleChangeSelectImg(e, "second")}
                         />
                         <div className={classes.button_pick_img}>
                             <ImgPickerIcon/>
                             Прикрепить
                         </div>
-                        {
-                            SecondImage?.name && `${SecondImage.name}`
-                        }
+                        {SecondImage?.name && `${SecondImage.name}`}
                     </label>
                 </div>
             </div>
