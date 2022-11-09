@@ -35,6 +35,7 @@ function CreateOrder() {
         setActiveStep(0);
     };
 
+
     return (
         <div>
             <div className={classes.header}>
@@ -45,7 +46,8 @@ function CreateOrder() {
             <Box sx={{width: "100%"}}>
                 <Stepper
                     activeStep={activeStep}
-                    sx={{display: "flex", flexWrap: "wrap"}}
+                    className = {styles.stepper}
+
                 >
                     {STEPS.map((el, index) => {
                         const stepProps: { completed?: boolean } = {};
@@ -54,8 +56,9 @@ function CreateOrder() {
                         } = {};
 
                         return (
-                            <Step key={el.label} {...stepProps}>
-                                <StepLabel {...labelProps}>{el.label}</StepLabel>
+                            <Step key={el.label} {...stepProps} className = {styles.step}>
+                                <StepLabel/>
+                                <p>{el.label}</p>
                             </Step>
                         );
                     })}

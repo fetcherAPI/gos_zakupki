@@ -11,3 +11,38 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+.stepper {
+
+}
+
+@media only screen and (max-width: 880px) {
+  .stepper {
+   display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+.step {
+  display: flex;
+  flex-direction: column;
+  width: 14%;
+  align-items: center;
+  height: 100px;
+
+  p {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 880px) {
+  .step {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+

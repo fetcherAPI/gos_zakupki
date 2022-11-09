@@ -2,7 +2,7 @@ import OrganizationInfo from "./OrganizationInfo";
 
 export const STEPS = [
     {
-        label: 'Информация об организации',
+        label: 'Информация  об организации',
         element: <OrganizationInfo/>,
     },
     {
