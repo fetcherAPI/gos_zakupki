@@ -4,6 +4,7 @@ import {Invoice} from "../comonents/Invoice/Invoice";
 import TenderList from "../comonents/TenderList/TenderList";
 import {Settings} from "../comonents/Settings/Settings";
 import CreateOrder from "../comonents/CreateOrder/CreateOrder";
+import MainData from "../comonents/CreateOrder/MainData/MainData";
 
 export interface IRoute {
     path: string;
@@ -14,6 +15,7 @@ export enum RouteNames {
     INVIOS = "/invios",
     TENDER_LIST = "/tender-list",
     PLAN_GOZ_ZAKUPOK = "/plan-gz",
+    CREATE_TENDER = '/create-tender',
     SETTINGS = "/settings",
     MAIN = "/",
 }
@@ -23,6 +25,7 @@ export const privateRoutes: IRoute[] = [
     {path: RouteNames.INVIOS, component: Invoice},
     {path: RouteNames.SETTINGS, component: Settings},
     {path: RouteNames.PLAN_GOZ_ZAKUPOK, component: CreateOrder},
+    {path: RouteNames.CREATE_TENDER, component: MainData}
 ];
 
 export const publicRoutes: IRoute[] = [

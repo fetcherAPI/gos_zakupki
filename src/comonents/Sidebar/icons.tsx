@@ -30,7 +30,7 @@ export const icons = [
   {
     element: <Contracts />,
     text: "Контракты",
-    path: "/contracts",
+    path: '/create-tender',
   },
   {
     element: <Notice />,

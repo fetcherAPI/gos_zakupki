@@ -7,3 +7,9 @@ export default class CheckRefreshTokenService {
         return api.get<RefreshResponce>("/refresh_token");
     }
 }
+
+export class CreateOrderService {
+    static async getListOfFormatBuying(): Promise<AxiosResponse> {
+        return api.get('http://localhost:8000/buyingFormat')
+    }
+}

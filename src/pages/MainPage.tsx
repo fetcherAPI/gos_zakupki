@@ -1,6 +1,6 @@
 import {AppRouter} from "../routes/AppRouter";
 import Box from "@mui/material/Box";
-import Sidebar from "../comonents/sidebar";
+import Sidebar from "../comonents/Sidebar";
 import {useAppSelector} from "../hook/reduxHooks";
 
 type Props = {};

@@ -33,7 +33,7 @@ function App() {
     } else if (status === "logged-in") {
         return responseStatus === 'resolve' ? <MainPage/> : <ServerErrorPage/>;
     } else {
-        return <h1>Good </h1>;
+        return <h1>Good</h1>;
     }
 }
 
