@@ -11,20 +11,12 @@ import {takeBuyingFormatList} from "../../../state/slices/CreateOrderMainSlice";
 const MainData: React.FC = () => {
     const dispatch = useAppDispatch()
     let navigate = useNavigate();
-    const {buyingFormatsList, error} = useAppSelector(state => state.createOrderMain)
+    const {buyingFormatsList, error, queryStatus} = useAppSelector(state => state.createOrderMain)
 
 
     useEffect(() => {
         dispatch(takeBuyingFormatList())
     }, []);
-
-    console.log(buyingFormatsList);
-
-    const handleChange = (value: string) => {
-        console.log(value);
-
-    };
-    console.log(buyingFormatsList);
 
     const handleCreateButton = () => {
         navigate(RouteNames.PLAN_GOZ_ZAKUPOK)
@@ -39,7 +31,8 @@ const MainData: React.FC = () => {
                     defaultValue={'Выберите формат закупок'}
                     className={classes.select}
                     status={error ? 'error' : undefined}
-                    onChange={handleChange}
+                    loading={queryStatus === 'pending' ? true : false}
+
                     options={buyingFormatsList}
                 />
             </div>
@@ -50,7 +43,7 @@ const MainData: React.FC = () => {
                     aria-required={true}
                     defaultValue={'Выберите Вид закупок'}
                     className={classes.select}
-                    onChange={handleChange}
+
                     options={buyingFormatsList}
                 />
             </div>
@@ -60,7 +53,7 @@ const MainData: React.FC = () => {
                 <Select
                     defaultValue={'Выберите Метод закупок'}
                     className={classes.select}
-                    onChange={handleChange}
+
                     options={buyingFormatsList}
                 />
             </div>
@@ -71,7 +64,7 @@ const MainData: React.FC = () => {
                     disabled
                     defaultValue={'Без внешней системы'}
                     className={classes.select}
-                    onChange={handleChange}
+
                     options={buyingFormatsList}
                 />
             </div>
