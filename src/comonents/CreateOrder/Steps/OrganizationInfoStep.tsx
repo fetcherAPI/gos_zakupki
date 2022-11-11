@@ -13,9 +13,6 @@ import {Dayjs} from "dayjs";
 import {ImgPickerIcon} from "../../../assets/img/export";
 import classes from "./Steps.module.scss";
 import TextField from "@mui/material/TextField";
-import {useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
-import * as Yup from 'yup'
 
 const OrganizationInfo = () => {
     const [FirstSelectedFile, setFirstSelectedFile] = useState<any>();
@@ -31,34 +28,6 @@ const OrganizationInfo = () => {
         ReasonsForChoosingRestrictedMethod,
         ChoiceOfApplication,
     } = useAppSelector((state) => state.organizationInfo);
-
-    const validationSchema = Yup.object().shape({
-        orderName: Yup.string()
-            .required('Это обязательное поле для заполнения')
-            .min(2, 'минимальное количесвто символов 2')
-            .max(255, 'максимальное количесвто символов 255'),
-        sourcesOfFinancing: Yup.string()
-            .required('Это обязательное поле для заполнения')
-            .min(2, 'минимальное количесвто символов 2')
-            .max(255, 'максимальное количесвто символов 255'),
-        restrictedMethod: Yup.string()
-            .required('Это обязательное поле для заполнения')
-            .min(2, 'минимальное количесвто символов 2')
-            .max(255, 'максимальное количесвто символов 255'),
-    })
-
-    const {
-        register,
-        handleSubmit,
-        formState: {errors}
-    } = useForm<any>({
-        resolver: yupResolver(validationSchema)
-    })
-
-    const onSubmit = (data: any) => {
-        alert(data)
-    }
-
 
     const handleChangeSelectImg = (e: any, imgFor: string) => {
         switch (imgFor) {
@@ -95,18 +64,15 @@ const OrganizationInfo = () => {
 
 
     return (
-        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <form className={classes.form}>
             <div className={classes.item}>
                 <p className={classes.title}>название закупки</p>
                 <div className={classes.content}>
                     <TextField
-                        {...register('orderName')}
                         fullWidth
                         value={nameOfBuying}
                         placeholder='текст'
                         multiline
-                        error={errors.orderName ? true : false}
-                        helperText={errors.orderName?.message ? 'fjdklsjl' : 'error'}
                         onChange={(e) => dispatch(Actions.setNameOfBuying(e.target.value))}
                     />
                 </div>
