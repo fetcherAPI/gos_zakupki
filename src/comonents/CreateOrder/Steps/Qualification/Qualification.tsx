@@ -15,17 +15,8 @@ type QualificationType = {
 interface DataType {
   key: string;
   qualifiaction: string;
-
   requirements: string;
 }
-
-const data: DataType[] = [
-  {
-    key: "1",
-    qualifiaction: "John Brown",
-    requirements: "New York No. 1 Lake Park",
-  },
-];
 
 const columns: ColumnsType<DataType> = [
   {
@@ -56,7 +47,10 @@ const columns: ColumnsType<DataType> = [
 export const Qualification = () => {
   const [incoterm, setIncoterm] = useState<[]>([]);
   const [textAreaValue, setTextAreaValue] = useState<string>("");
+  const [selectedQualification, setSelectedQualification] =
+    useState<string>("");
   const [tableData, setTableData] = useState<DataType[]>([]);
+
   const { TextArea } = Input;
 
   useEffect(() => {
@@ -66,11 +60,25 @@ export const Qualification = () => {
   }, []);
 
   const handleSelect = (e: any) => {
-    const text = e.target.innerHTML;
+    const text: string = e.target.innerHTML;
+
     const filteredIncoterm: Array<QualificationType> = incoterm.filter(
       (el: QualificationType): boolean => el.title === text
     );
+
+    setSelectedQualification(text);
     setTextAreaValue(filteredIncoterm[0]?.template);
+  };
+
+  const handleAdd = (values: any) => {
+    const newData: DataType = {
+      key: values.qualification,
+      qualifiaction: selectedQualification,
+      requirements: textAreaValue,
+    };
+    setSelectedQualification("");
+    setTextAreaValue("");
+    setTableData((prev) => [...prev, newData]);
   };
 
   const incotermSelectItems = incoterm.map(
@@ -90,13 +98,7 @@ export const Qualification = () => {
         labelCol={{ span: 10 }}
         wrapperCol={{ span: 14 }}
         onFinish={(values) => {
-          const newData: DataType = {
-            key: values.qualification,
-            qualifiaction: values.qualification,
-            requirements: textAreaValue,
-          };
-          setTableData((prev) => [...prev, newData]);
-          values.reset();
+          handleAdd(values);
         }}
         onFinishFailed={(error) => {
           console.log({ error });
@@ -117,7 +119,7 @@ export const Qualification = () => {
           />
           <p style={{ opacity: 0 }}>{textAreaValue}</p>
         </Form.Item>
-        <Form.Item wrapperCol={{ span: 24 }}>
+        <Form.Item name='button' wrapperCol={{ span: 24 }}>
           <Button block type='primary' htmlType='submit'>
             Добавить
           </Button>
