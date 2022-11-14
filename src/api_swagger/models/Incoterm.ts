@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Incoterm = {
+export type IncotermType = {
   title?: string;
   data?: Incoterm.data;
 };

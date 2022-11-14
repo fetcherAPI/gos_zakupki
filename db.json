@@ -32,26 +32,26 @@
   ],
   "lotsDocuments": [
     {
-      "title": "Сертификат соответствия",
-      "data": "CERTIFICATE_OF_SUITABILITY"
+      "label": "Сертификат соответствия",
+      "value": "CERTIFICATE_OF_SUITABILITY"
     },
     {
-      "title": "Декларация соответствия",
-      "data": "DECLARATION_OF_SUITABILITY"
+      "label": "Декларация соответствия",
+      "value": "DECLARATION_OF_SUITABILITY"
     },
     {
-      "title": "Письмо-подтверждения завода-изготовителя",
-      "data": "AGREEMENT_LETTER_OF_PRODUCT_FACTORY"
+      "label": "Письмо-подтверждения завода-изготовителя",
+      "value": "AGREEMENT_LETTER_OF_PRODUCT_FACTORY"
     },
     {
-      "title": "Авторизованное письмо от завода",
-      "data": "AUTHORIZED_LETTER_OF_PRODUCT_FACTORY_DILLER"
+      "label": "Авторизованное письмо от завода",
+      "value": "AUTHORIZED_LETTER_OF_PRODUCT_FACTORY_DILLER"
     },
     {
-      "title": "Протокол радиологических испытаний",
-      "data": "RADIOLOGICAL_TEST_PROTOCOL"
+      "label": "Протокол радиологических испытаний",
+      "value": "RADIOLOGICAL_TEST_PROTOCOL"
     },
-    { "title": "Другие документы", "data": "OTHER_DOCUMENTS" }
+    { "label": "Другие документы", "value": "OTHER_DOCUMENTS" }
   ],
   "qualifiers": [
     {
@@ -200,6 +200,19 @@
       "title": "Дополнительные требования при оценке",
       "template": null
     }
+  ],
+  "Incoterm": [
+    { "title": "EXW", "data": "EXW" },
+    { "title": "FCA", "data": "FCA" },
+    { "title": "FAS", "data": "FAS" },
+    { "title": "FOB", "data": "FOB" },
+    { "title": "CFR", "data": "CFR" },
+    { "title": "CIF", "data": "CIF" },
+    { "title": "CIP", "data": "CIP" },
+    { "title": "CPT", "data": "CPT" },
+    { "title": "DAT", "data": "DAT" },
+    { "title": "DAP", "data": "DAP" },
+    { "title": "DDP", "data": "DDP" }
   ],
   "supplyDocuments ": [
     {
