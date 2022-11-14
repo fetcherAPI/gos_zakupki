@@ -1,10 +1,3 @@
-interface IVAlidationRules {
-  rule: string;
-  message: string;
-  max?: number;
-  min?: number;
-}
-
 export const validationRules = (
   rule: string,
   message: string,
@@ -17,7 +10,6 @@ export const validationRules = (
       message,
     };
   } else if (rule === "min") {
-    console.log("min", min);
     return {
       [rule]: min,
       message,

@@ -3,15 +3,16 @@ import { Select } from "antd";
 import type { SelectProps } from "antd";
 import { utilControllerService } from "../../services/utilContollerService";
 
-const handleChange = (value: string | string[]) => {
-  console.log(`Selected: ${value}`);
+type Props = {
+  setDocumentsList: any;
 };
-
-type Props = {};
 
 const DocumnetSelector = (props: Props) => {
   const [options, setOptions] = useState<SelectProps["options"]>([]);
-
+  const handleChange = (value: string | string[]) => {
+    console.log(`Selected: ${value}`);
+    props.setDocumentsList(value);
+  };
   useEffect(() => {
     utilControllerService.getListOfLotsDocumnets().then((res) => {
       setOptions(res.data);

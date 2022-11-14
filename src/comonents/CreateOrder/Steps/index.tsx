@@ -1,5 +1,6 @@
 import { LotStep } from "./LotsStep";
 import OrganizationInfoStep from "./OrganizationInfoStep";
+import { Qualification } from "./Qualification/Qualification";
 
 export const STEPS = [
   {
@@ -12,7 +13,7 @@ export const STEPS = [
   },
   {
     label: "Квалификационные требования",
-    element: <OrganizationInfoStep />,
+    element: <Qualification />,
   },
   {
     label: "Специальное требования",

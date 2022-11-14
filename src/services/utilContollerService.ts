@@ -9,4 +9,8 @@ export class utilControllerService {
   static async getListOfLotsDocumnets(): Promise<AxiosResponse<[]>> {
     return api.get("http://localhost:8000/lotsDocuments");
   }
+
+  static async getListOfQualifiersList(): Promise<AxiosResponse> {
+    return api.get("http://localhost:8000/qualifiersWidhtFalseValue");
+  }
 }

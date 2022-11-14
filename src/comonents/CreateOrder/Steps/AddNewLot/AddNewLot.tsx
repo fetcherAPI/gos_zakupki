@@ -1,4 +1,4 @@
-import { Form, Button, Checkbox, Input, Select, Upload } from "antd";
+import { Form, Button, Input, Select, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { validationRules } from "./validationShcema";
 import { ReactNode, useEffect, useState } from "react";
@@ -7,9 +7,8 @@ import { utilControllerService } from "../../../../services/utilContollerService
 import DocumnetSelector from "../../../DocumentSelector";
 
 export const AddNewLot = () => {
-  const [incoterm, setIncoterm] = useState<IncotermType[]>([
-    { data: undefined, title: "Нет данных" },
-  ]);
+  const [incoterm, setIncoterm] = useState<IncotermType[]>([]);
+  const [documentsList, setDocumentsList] = useState<any>();
   const { TextArea } = Input;
 
   useEffect(() => {
@@ -25,19 +24,12 @@ export const AddNewLot = () => {
       </Select.Option>
     );
   });
+
   const props = {
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    onChange({ file, fileList }: any) {
-      if (file.status !== "uploading") {
-        console.log(file, fileList);
-      }
-    },
     defaultFileList: [],
   };
 
-  const onSubmit = (data: any) => {
-    alert(JSON.stringify(data));
-  };
   return (
     <Form
       autoComplete='off'
@@ -152,7 +144,7 @@ export const AddNewLot = () => {
         </Form.Item>
       </Form.Item>
       <Form.Item name='Documnets' label={`ДОКУМЕНТЫ`}>
-        <DocumnetSelector />
+        <DocumnetSelector setDocumentsList={setDocumentsList} />
       </Form.Item>
       <Form.Item wrapperCol={{ span: 24 }}>
         <Button block type='primary' htmlType='submit'>
