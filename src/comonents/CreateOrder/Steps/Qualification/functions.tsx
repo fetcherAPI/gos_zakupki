@@ -1,0 +1,51 @@
+import type { ColumnsType } from "antd/es/table";
+import { Space } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../../../hook/reduxHooks";
+import {} from "../../../../models/AppTypes/QualificationTypes";
+import {
+  deleteTableData,
+  setSelectedQualification,
+  setTableData,
+  setTextAreaValue,
+} from "../../../../state/slices/Qualification";
+import {
+  IDataType,
+  QualificationType,
+} from "../../../../models/AppTypes/QualificationTypes";
+
+export const useHandleFunctions = () => {
+  const dispatch = useAppDispatch();
+  const { qualifiersList, tableData, selectedQualification, textAreaValue } =
+    useAppSelector((state) => state.Qualification);
+
+  const handleSelect = (e: any) => {
+    const text: string = e.target.innerHTML;
+    const filteredIncoterm: Array<QualificationType> = qualifiersList.filter(
+      (el: QualificationType): boolean => el.title === text
+    );
+    dispatch(setSelectedQualification(text));
+    dispatch(setTextAreaValue(filteredIncoterm[0]?.template));
+  };
+
+  const handleDelete = (dataToDelete: IDataType) => {
+    console.log("called");
+    const newTableData: Array<IDataType> = tableData.filter(
+      (el: IDataType) => el.qualifiaction !== dataToDelete.qualifiaction
+    );
+    dispatch(deleteTableData(newTableData));
+  };
+
+  const handleAdd = (values: any) => {
+    const newData: IDataType = {
+      key: selectedQualification,
+      qualifiaction: selectedQualification,
+      requirements: textAreaValue,
+    };
+    setSelectedQualification("");
+    dispatch(setTextAreaValue(""));
+    dispatch(setTableData(newData));
+  };
+
+  return { handleDelete, handleSelect, handleAdd };
+};
