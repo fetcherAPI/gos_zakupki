@@ -1,6 +1,7 @@
 import { LotStep } from "./LotsStep";
 import OrganizationInfoStep from "./OrganizationInfoStep";
 import { Qualification } from "./Qualification/Qualification";
+import { SpecalRequirments } from "./SpecialRequirments";
 
 export const STEPS = [
   {
@@ -17,7 +18,7 @@ export const STEPS = [
   },
   {
     label: "Специальное требования",
-    element: <OrganizationInfoStep />,
+    element: <SpecalRequirments />,
   },
   {
     label: "Особые условаия контракта",
