@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button, Select } from "antd";
 import classes from "./MainData.module.scss";
 import { useNavigate } from "react-router-dom";

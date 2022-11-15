@@ -12,23 +12,25 @@ function App() {
   const { userStatus, user, responseStatus } = useAppSelector(
     (state) => state.auth
   );
+
+  useEffect(() => {
+    axios
+      .get("http://10.200.24.103:8088/main/util/procurementMethod")
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }, []);
+
   const [currentTime, setCurrentTime] = useState(Date.now());
-  axios
-    .get("http://10.200.24.103:8088/main/util/procurementMethod")
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+
   // useEffect(() => {
-  //     setTimeout(() => {
-  //         setCurrentTime(Date.now());
-  //     }, 5 * 1000 * 60);
-  //     if (currentTime > Date.parse(user?.expiryDate)) {
-  //         dispatch(checkRefreshTokenAsync());
-  //     }
-  // }, [currentTime, dispatch, user?.expiryDate]);
-  //
-  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setCurrentTime(Date.now());
+  //   }, 5 * 1000 * 60);
+  //   if (currentTime > Date.parse(user?.expiryDate)) {
   //     dispatch(checkRefreshTokenAsync());
-  // }, [dispatch]);
+  //   }
+  // }, [currentTime, dispatch, user?.expiryDate]);
+
   const { status } = userStatus;
 
   if (status === "server-unreachable") {

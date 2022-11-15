@@ -75,12 +75,6 @@ export const CreateOrderMainSlice = createSlice({
       .addCase(takeBuyingFormatList.rejected, (state, action: any) => {
         state.queryStatus = "rejected";
         state.error = action.payload;
-        state.buyingFormatsList = [
-          {
-            value: "500",
-            label: "Сервер не отвечает",
-          },
-        ];
       });
     builder
       .addCase(takeOrderViewList.pending, (state) => {

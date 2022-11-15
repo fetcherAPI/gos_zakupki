@@ -18,37 +18,36 @@ interface DataType {
   requirements: string;
 }
 
-const columns: ColumnsType<DataType> = [
-  {
-    title: "Квалификация",
-    dataIndex: "qualifiaction",
-    key: "qualifiaction",
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Требования",
-    dataIndex: "requirements",
-    key: "requirements",
-  },
-
-  {
-    title: "Действие",
-    key: "action",
-    render: (_, record) => (
-      <Space size='middle'>
-        <DeleteOutlined
-          style={{ fontSize: "30px", color: "#08c", cursor: "pointer" }}
-        />
-      </Space>
-    ),
-  },
-];
-
 export const Qualification = () => {
   const [incoterm, setIncoterm] = useState<[]>([]);
   const [textAreaValue, setTextAreaValue] = useState<string>("");
   const [selectedQualification, setSelectedQualification] =
     useState<string>("");
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "Квалификация",
+      dataIndex: "qualifiaction",
+      key: "qualifiaction",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Требования",
+      dataIndex: "requirements",
+      key: "requirements",
+    },
+
+    {
+      title: "Действие",
+      key: "action",
+      render: (_, record) => (
+        <Space size='middle' onClick={() => handleDelete(record)}>
+          <DeleteOutlined
+            style={{ fontSize: "30px", color: "#08c", cursor: "pointer" }}
+          />
+        </Space>
+      ),
+    },
+  ];
   const [tableData, setTableData] = useState<DataType[]>([]);
 
   const { TextArea } = Input;
@@ -70,9 +69,16 @@ export const Qualification = () => {
     setTextAreaValue(filteredIncoterm[0]?.template);
   };
 
+  const handleDelete = (dataToDelete: DataType) => {
+    const newTableData: Array<DataType> = tableData.filter(
+      (el: DataType) => el.qualifiaction !== dataToDelete.qualifiaction
+    );
+    setTableData(newTableData);
+  };
+
   const handleAdd = (values: any) => {
     const newData: DataType = {
-      key: values.qualification,
+      key: selectedQualification,
       qualifiaction: selectedQualification,
       requirements: textAreaValue,
     };
