@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Select } from "antd";
-import { Button } from "antd";
+import { Button, Select } from "antd";
 import classes from "./MainData.module.scss";
 import { useNavigate } from "react-router-dom";
 import { RouteNames } from "../../../routes";
 import { useAppDispatch, useAppSelector } from "../../../hook/reduxHooks";
 import {
+  setBuyingFormatsValue,
+  setOrderViewValue,
   takeBuyingFormatList,
   takeOrderViewList,
 } from "../../../state/slices/CreateOrderMainSlice";
@@ -13,9 +14,15 @@ import {
 const MainData: React.FC = () => {
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
-  const { buyingFormatsList, orderView, error, queryStatus } = useAppSelector(
-    (state) => state.createOrderMain
-  );
+
+  const {
+    buyingFormatsList,
+    orderView,
+    error,
+    queryStatus,
+    buyingFormatValue,
+    orderViewValue,
+  } = useAppSelector((state) => state.createOrderMain);
 
   useEffect(() => {
     dispatch(takeBuyingFormatList());
@@ -26,33 +33,61 @@ const MainData: React.FC = () => {
     navigate(RouteNames.PLAN_GOZ_ZAKUPOK);
   };
 
+  const handleSelectBuyingFormat = (e: any) => {
+    dispatch(setBuyingFormatsValue(e.target.innerText));
+  };
+
+  const handleSelectOrderView = (e: any) => {
+    dispatch(setOrderViewValue(e.target.innerText));
+  };
+
+  const isButtonDisabled = (): boolean => {
+    if (
+      error?.message ||
+      (!buyingFormatValue && error?.message) ||
+      !orderViewValue
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.selector}>
         <p>Формат закупок</p>
         <Select
-          defaultValue={"Выберите формат закупок"}
+          placeholder={"Выберите формат закупок"}
           className={classes.select}
-          status={error ? "error" : undefined}
+          onClick={(e) => handleSelectBuyingFormat(e)}
+          status={buyingFormatValue ? undefined : "error"}
           loading={queryStatus === "pending" ? true : false}
           options={buyingFormatsList}
         />
       </div>
+      {buyingFormatValue ? null : (
+        <p className={classes.error_txt}>поле обязательно для заполнения</p>
+      )}
       <hr />
       <div className={classes.selector}>
         <p>Вид закупок</p>
         <Select
-          aria-required={true}
-          defaultValue={"Выберите Вид закупок"}
+          onClick={(e) => handleSelectOrderView(e)}
+          status={orderViewValue ? undefined : "error"}
+          placeholder={"Выберите Вид закупок"}
           className={classes.select}
           options={orderView}
         />
       </div>
+      {orderViewValue ? null : (
+        <p className={classes.error_txt}>поле обязательно для заполнения</p>
+      )}
       <hr />
       <div className={classes.selector}>
         <p>Метод закупок</p>
         <Select
-          defaultValue={"Выберите Метод закупок"}
+          placeholder={"Выберите Метод закупок"}
           className={classes.select}
           options={buyingFormatsList}
         />
@@ -72,7 +107,11 @@ const MainData: React.FC = () => {
         <input type='checkbox' />
         <p>Применить асимметричное шифрование</p>
       </div>
-      <Button type='primary' onClick={() => handleCreateButton()}>
+      <Button
+        type='primary'
+        disabled={isButtonDisabled()}
+        onClick={() => handleCreateButton()}
+      >
         Создать объявление
       </Button>
     </div>

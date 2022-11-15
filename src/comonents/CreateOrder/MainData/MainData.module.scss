@@ -1,6 +1,6 @@
-@import "src/scss/vars.scss";
+@import "../../../scss/vars.scss";
 
-.wrapper{
+.wrapper {
   border-radius: 5px;
   margin: 0 auto;
   width: 70%;
@@ -9,12 +9,12 @@
   text-align: center;
 }
 
-.selector{
+.selector {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1%;
-  p{
+
+  p {
     margin: 0;
   }
 }
@@ -22,3 +22,9 @@
   width: 70%;
 }
 
+.error_txt {
+  color: $errors-color;
+  text-align: end;
+  margin: 0;
+  font-size: small;
+}

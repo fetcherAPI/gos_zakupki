@@ -10,13 +10,17 @@ interface Interface {
   queryStatus?: string;
   buyingFormatsList: Array<ListItemType>;
   orderView: Array<ListItemType>;
+  buyingFormatValue: string;
+  orderViewValue: string;
   error: any;
 }
 
 const initialState: Interface = {
   buyingFormatsList: [],
   orderView: [],
+  orderViewValue: "",
   error: "",
+  buyingFormatValue: "",
 };
 
 export const takeBuyingFormatList = createAsyncThunk(
@@ -50,15 +54,23 @@ export const CreateOrderMainSlice = createSlice({
     setBuyingFormatsList(state, action) {
       state.buyingFormatsList = action.payload;
     },
+    setBuyingFormatsValue(state, action) {
+      state.buyingFormatValue = action.payload;
+    },
+    setOrderViewValue(state, action) {
+      state.orderViewValue = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(takeBuyingFormatList.pending, (state) => {
         state.queryStatus = "pending";
+        state.error = "";
       })
       .addCase(takeBuyingFormatList.fulfilled, (state, action) => {
         state.queryStatus = "resolve";
         state.buyingFormatsList = action.payload;
+        state.error = "";
       })
       .addCase(takeBuyingFormatList.rejected, (state, action: any) => {
         state.queryStatus = "rejected";
@@ -91,6 +103,10 @@ export const CreateOrderMainSlice = createSlice({
   },
 });
 
-export const { setBuyingFormatsList } = CreateOrderMainSlice.actions;
+export const {
+  setBuyingFormatsList,
+  setBuyingFormatsValue,
+  setOrderViewValue,
+} = CreateOrderMainSlice.actions;
 
 export default CreateOrderMainSlice.reducer;
