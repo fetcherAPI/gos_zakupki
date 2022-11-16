@@ -1,8 +1,4 @@
-import type { ColumnsType } from "antd/es/table";
-import { Space } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../../hook/reduxHooks";
-import {} from "../../../../models/AppTypes/QualificationTypes";
 import {
   deleteTableData,
   setSelectedQualification,
@@ -29,7 +25,6 @@ export const useHandleFunctions = () => {
   };
 
   const handleDelete = (dataToDelete: IDataType) => {
-    console.log("called");
     const newTableData: Array<IDataType> = tableData.filter(
       (el: IDataType) => el.qualifiaction !== dataToDelete.qualifiaction
     );

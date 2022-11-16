@@ -9,6 +9,8 @@ import classes from "../../scss/global.module.scss";
 import styles from "./CreateOrder.module.scss";
 import { STEPS } from "./Steps";
 
+export const handleNextContext = React.createContext(() => {});
+
 function CreateOrder() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
@@ -41,55 +43,53 @@ function CreateOrder() {
         <p>{`кабинет`}</p>
         <h1>Настройки</h1>
       </div>
+      <handleNextContext.Provider value={handleNext}>
+        <Box sx={{ width: "100%" }}>
+          <Stepper activeStep={activeStep} className={styles.stepper}>
+            {STEPS.map((el, index) => {
+              const stepProps: { completed?: boolean } = {};
 
-      <Box sx={{ width: "100%" }}>
-        <Stepper activeStep={activeStep} className={styles.stepper}>
-          {STEPS.map((el, index) => {
-            const stepProps: { completed?: boolean } = {};
-
-            return (
-              <Step key={el.label} {...stepProps} className={styles.step}>
-                <StepLabel />
-                <p>{el.label}</p>
-              </Step>
-            );
-          })}
-        </Stepper>
-        {activeStep === STEPS.length ? (
-          <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed - you&apos;re finished
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Box sx={{ flex: "1 1 auto" }} />
-              <Button onClick={handleReset}>Reset</Button>
-            </Box>
-          </React.Fragment>
-        ) : (
-          <div className={styles.wrapper}>
-            {STEPS[activeStep].element}
-            <Box className={styles.footer}>
-              <Typography>
-                Шаг {activeStep + 1} из {STEPS.length}
-              </Typography>
-              <Button
-                color='inherit'
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
-              <Box />
-              <Button onClick={handleNext}>
-                {activeStep === STEPS.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </Box>
-          </div>
-        )}
-      </Box>
+              return (
+                <Step key={el.label} {...stepProps} className={styles.step}>
+                  <StepLabel />
+                  <p>{el.label}</p>
+                </Step>
+              );
+            })}
+          </Stepper>
+          {activeStep === STEPS.length ? (
+            <React.Fragment>
+              <Typography sx={{ mt: 2, mb: 1 }}>Все шаги сделаны</Typography>
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Box sx={{ flex: "1 1 auto" }} />
+                <Button onClick={handleReset}>Reset</Button>
+              </Box>
+            </React.Fragment>
+          ) : (
+            <div className={styles.wrapper}>
+              {STEPS[activeStep].element}
+              <Box className={styles.footer}>
+                <Typography>
+                  Шаг {activeStep + 1} из {STEPS.length}
+                </Typography>
+                <Button
+                  color='inherit'
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                >
+                  Back
+                </Button>
+                <Box />
+                <Button onClick={handleNext}>
+                  {activeStep === STEPS.length - 1 ? "Finish" : "Next"}
+                </Button>
+              </Box>
+            </div>
+          )}
+        </Box>
+      </handleNextContext.Provider>
     </div>
   );
 }
-
 export default CreateOrder;

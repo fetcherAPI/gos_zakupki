@@ -1,5 +1,5 @@
 import { Form, Button, Input, Select } from "antd";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useContext, useEffect } from "react";
 import { Table } from "antd";
 import { utilControllerService } from "../../../../services/utilContollerService";
 import { Space } from "antd";
@@ -15,6 +15,7 @@ import {
   setQualifiersList,
   setTextAreaValue,
 } from "../../../../state/slices/Qualification";
+import { handleNextContext } from "../../CreateOrder";
 
 export const Qualification = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ export const Qualification = () => {
     (state) => state.Qualification
   );
   const { handleSelect, handleAdd, handleDelete } = useHandleFunctions();
-
+  const handleNext = useContext(handleNextContext);
   const { TextArea } = Input;
 
   useEffect(() => {
@@ -108,6 +109,7 @@ export const Qualification = () => {
         </Form.Item>
       </Form>
       <Table locale={locale} columns={columns} dataSource={tableData} />
+      <button onClick={() => handleNext()}>Сохранить</button>
     </>
   );
 };
