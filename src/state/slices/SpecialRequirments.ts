@@ -3,12 +3,14 @@ import { ICriteria } from "../../models/AppTypes/QualificationTypes";
 
 interface IState {
   criteriasGradeList: Array<ICriteria>;
+  criteriasGradeTableData: Array<any>;
   selectedCriteriaGrade: string;
   conditionalGradeValue: string;
 }
 
 const initialState: IState = {
   criteriasGradeList: [],
+  criteriasGradeTableData: [],
   selectedCriteriaGrade: "",
   conditionalGradeValue: "",
 };
@@ -21,7 +23,7 @@ export const SpecialRequirmentsSlice = createSlice({
       console.log("action.payload", action.payload);
       state.criteriasGradeList = action.payload;
     },
-    deleteFromCriteriasGradeList(state, action) {
+    deleteFromCriteriasGradeTableData(state, action) {
       state.criteriasGradeList = [...state.criteriasGradeList, action.payload];
     },
     setSelectedCriteriaGarde(state, action) {
@@ -30,6 +32,12 @@ export const SpecialRequirmentsSlice = createSlice({
     setConditionalGradeValue(state, action) {
       state.conditionalGradeValue = action.payload;
     },
+    setCriteriasGradeTableData(state, action) {
+      state.criteriasGradeTableData = [
+        ...state.criteriasGradeTableData,
+        action.payload,
+      ];
+    },
   },
 });
 
@@ -37,7 +45,8 @@ export const {
   setCriteriasGradeList,
   setSelectedCriteriaGarde,
   setConditionalGradeValue,
-  deleteFromCriteriasGradeList,
+  deleteFromCriteriasGradeTableData,
+  setCriteriasGradeTableData,
 } = SpecialRequirmentsSlice.actions;
 
 export default SpecialRequirmentsSlice.reducer;

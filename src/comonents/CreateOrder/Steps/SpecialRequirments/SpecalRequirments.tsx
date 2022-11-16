@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import { Form, Button, Input, Select, DatePicker } from "antd";
+import { Form, Button, Input, Select, DatePicker, Table, Space } from "antd";
 import Switcher from "../../../../UIComponents/switch";
 import classes from "./SpecalRequirments.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../../hook/reduxHooks";
@@ -12,6 +12,8 @@ import {
   setSelectedCriteriaGarde,
 } from "../../../../state/slices/SpecialRequirments";
 import { useSelect } from "../../../../hook/useSelect";
+import { DeleteOutlined } from "@ant-design/icons";
+import type { ColumnsType } from "antd/es/table";
 
 type Props = {};
 
@@ -71,10 +73,34 @@ const Appoint = () => {
   );
 };
 
+const columns: ColumnsType<any> = [
+  {
+    title: "Критерий оценки",
+    dataIndex: "criteriaGrade",
+    key: "criteriaGrade",
+  },
+  {
+    title: "Условие оценки",
+    dataIndex: "conditionGrade",
+    key: "conditionGrade",
+  },
+
+  {
+    title: "Настройки",
+    key: "setting",
+    render: (_, record) => (
+      <Space size='middle'>
+        <DeleteOutlined
+          style={{ fontSize: "30px", color: "#d84949", cursor: "pointer" }}
+        />
+      </Space>
+    ),
+  },
+];
+
 export const SpecalRequirments = (props: Props) => {
-  const { criteriasGradeList, conditionalGradeValue } = useAppSelector(
-    (state) => state.SpecialRequirments
-  );
+  const { criteriasGradeList, conditionalGradeValue, criteriasGradeTableData } =
+    useAppSelector((state) => state.SpecialRequirments);
   const [isAppointBlockVisible, setIsAppointBlockVisible] =
     useState<boolean>(true);
 
@@ -83,9 +109,10 @@ export const SpecalRequirments = (props: Props) => {
   const { handleAdd, handleDelete, HandleSelect } = useHandleFunctions();
 
   useEffect(() => {
-    utilControllerService
-      .getListOfCriteriasList()
-      .then((res) => dispatch(setCriteriasGradeList(res.data)));
+    utilControllerService.getListOfCriteriasList().then((res) => {
+      console.log("res", res);
+      dispatch(setCriteriasGradeList(res.data));
+    });
   }, []);
 
   const HandleSelectList = (e: any) => {
@@ -159,6 +186,7 @@ export const SpecalRequirments = (props: Props) => {
           </Button>
         </Form.Item>
       </Form>
+      <Table columns={columns} dataSource={criteriasGradeTableData} />
       <div>
         <label
           className={classes.appoint_block}
