@@ -1,14 +1,10 @@
-import React, { ReactNode, useEffect } from "react";
-import { Form, Button, Input, Select } from "antd";
+import { ReactNode, useEffect, useState } from "react";
+import { Form, Button, Input, Select, DatePicker } from "antd";
 import Switcher from "../../../../UIComponents/switch";
 import classes from "./SpecalRequirments.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../../hook/reduxHooks";
 import { useHandleFunctions } from "../Qualification/functions";
-import { setTextAreaValue } from "../../../../state/slices/Qualification";
-import {
-  ICriteria,
-  QualificationType,
-} from "../../../../models/AppTypes/QualificationTypes";
+import { ICriteria } from "../../../../models/AppTypes/QualificationTypes";
 import { utilControllerService } from "../../../../services/utilContollerService";
 import {
   setConditionalGradeValue,
@@ -16,14 +12,72 @@ import {
   setSelectedCriteriaGarde,
 } from "../../../../state/slices/SpecialRequirments";
 import { useSelect } from "../../../../hook/useSelect";
+
 type Props = {};
 
-const Appoint = () => {};
+const Appoint = () => {
+  const { TextArea } = Input;
+  return (
+    <Form
+      autoComplete='off'
+      labelCol={{ span: 3 }}
+      wrapperCol={{ span: 10 }}
+      onFinish={(values) => {
+        console.log({ values });
+      }}
+      onFinishFailed={(error) => {
+        console.log({ error });
+      }}
+    >
+      <Form.Item
+        name='dob'
+        label='Дата и время'
+        rules={[
+          {
+            required: true,
+            message: "Выберите дату и время совещания",
+          },
+        ]}
+        hasFeedback
+      >
+        <DatePicker
+          showTime
+          style={{ width: "30%" }}
+          picker='date'
+          placeholder='Дата и время'
+        />
+      </Form.Item>
+      <Form.Item
+        name='fullName'
+        label='Адрес проведения'
+        rules={[
+          {
+            required: true,
+            message: "Введите фдрес и место проведения совещания",
+          },
+          { whitespace: true },
+          { min: 3 },
+        ]}
+      >
+        <TextArea placeholder='Адрес и место проведения' />
+      </Form.Item>
+
+      <Form.Item wrapperCol={{ span: 24 }}>
+        <Button block type='primary' htmlType='submit' style={{ width: "30%" }}>
+          Добавить адрес и время встречи
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};
 
 export const SpecalRequirments = (props: Props) => {
   const { criteriasGradeList, conditionalGradeValue } = useAppSelector(
     (state) => state.SpecialRequirments
   );
+  const [isAppointBlockVisible, setIsAppointBlockVisible] =
+    useState<boolean>(true);
+
   const { TextArea } = Input;
   const dispatch = useAppDispatch();
   const { handleAdd, handleDelete, HandleSelect } = useHandleFunctions();
@@ -71,8 +125,8 @@ export const SpecalRequirments = (props: Props) => {
 
       <Form
         autoComplete='off'
-        labelCol={{ span: 10 }}
-        wrapperCol={{ span: 14 }}
+        labelCol={{ span: 3 }}
+        wrapperCol={{ span: 10 }}
         onFinish={(values) => {
           handleAdd(values);
         }}
@@ -80,18 +134,22 @@ export const SpecalRequirments = (props: Props) => {
           console.log({ error });
         }}
       >
-        <Form.Item name='qualification' label='КВАЛИФИКАЦИЯ'>
+        <Form.Item name='qualification' label='КРИТЕРИЙ ОЦЕНКИ'>
           <Select placeholder='' onClick={(e: any) => HandleSelectList(e)}>
             {incotermSelectItems}
           </Select>
         </Form.Item>
 
-        <Form.Item name='requirement' label='требование'>
+        <Form.Item name='requirement' label='УСЛОВИЕ ОЦЕНКИ'>
           <TextArea
             defaultValue={conditionalGradeValue}
             value={conditionalGradeValue}
-            autoSize
-            onChange={(e: any) => dispatch(setTextAreaValue(e.target.value))}
+            autoSize={{ minRows: 3 }}
+            showCount
+            maxLength={500}
+            onChange={(e: any) =>
+              dispatch(setConditionalGradeValue(e.target.value))
+            }
           />
           <p style={{ opacity: 0 }}>{conditionalGradeValue}</p>
         </Form.Item>
@@ -101,11 +159,15 @@ export const SpecalRequirments = (props: Props) => {
           </Button>
         </Form.Item>
       </Form>
-      <div className={classes.appoint_block}>
-        <span>ПРЕДЗАКУПОЧНОЕ СОВЕЩАНИЕ</span>
-        <label onClick={() => console.log("fjdksj")}>
+      <div>
+        <label
+          className={classes.appoint_block}
+          onClick={() => setIsAppointBlockVisible((prev) => !prev)}
+        >
+          <span>ПРЕДЗАКУПОЧНОЕ СОВЕЩАНИЕ</span>
           <Switcher from='Нет' to='Да' />
         </label>
+        {isAppointBlockVisible ? <Appoint /> : null}
       </div>
     </div>
   );
