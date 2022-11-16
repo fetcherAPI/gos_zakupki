@@ -23,15 +23,15 @@ function App() {
 
   const [currentTime, setCurrentTime] = useState(Date.now());
 
-  useEffect(() => {
-    console.log("maount");
-    setTimeout(() => {
-      setCurrentTime(Date.now());
-    }, 5 * 1000 * 60);
-    if (currentTime > Date.parse(user?.expiryDate)) {
-      dispatch(checkRefreshTokenAsync());
-    }
-  }, [currentTime, dispatch, user?.expiryDate]);
+  // useEffect(() => {
+  //   console.log("maount");
+  //   setTimeout(() => {
+  //     setCurrentTime(Date.now());
+  //   }, 5 * 1000 * 60);
+  //   if (currentTime > Date.parse(user?.expiryDate)) {
+  //     dispatch(checkRefreshTokenAsync());
+  //   }
+  // }, [currentTime, dispatch, user?.expiryDate]);
 
   if (status === "server-unreachable") {
     return <ServerErrorPage />;

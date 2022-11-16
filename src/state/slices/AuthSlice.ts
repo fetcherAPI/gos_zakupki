@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 import CheckRefreshTokenService from "../../services/AuthService";
 import { isUserRoleCorrect } from "../../utils/checkUserRole";
 import { IAuthState } from "./types";
@@ -34,7 +35,8 @@ export const checkRefreshTokenAsync = createAsyncThunk(
       }
       throw new Error("роль не совпадает");
     } catch (error: any) {
-      if (error?.responseStatus) {
+      const err = error as AxiosError;
+      if (err.response?.status === 401) {
         window.localStorage.removeItem("authentication");
       }
       return rejectWithValue(error);
@@ -79,8 +81,9 @@ export const authSlice = createSlice({
         state.userRole = action.payload.role;
       })
       .addCase(checkRefreshTokenAsync.rejected, (state, action: any) => {
+        const err = action.payload as AxiosError;
         state.responseStatus = "rejected";
-        if (action.payload.responseStatus) {
+        if (err.response?.status === 401) {
           state.userStatus = {
             status: "logged-out",
           };

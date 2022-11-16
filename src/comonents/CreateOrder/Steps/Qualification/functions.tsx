@@ -5,23 +5,21 @@ import {
   setTableData,
   setTextAreaValue,
 } from "../../../../state/slices/Qualification";
-import {
-  IDataType,
-  QualificationType,
-} from "../../../../models/AppTypes/QualificationTypes";
+import { IDataType } from "../../../../models/AppTypes/QualificationTypes";
+import { useSelect } from "../../../../hook/useSelect";
 
 export const useHandleFunctions = () => {
   const dispatch = useAppDispatch();
   const { qualifiersList, tableData, selectedQualification, textAreaValue } =
     useAppSelector((state) => state.Qualification);
 
-  const handleSelect = (e: any) => {
-    const text: string = e.target.innerHTML;
-    const filteredIncoterm: Array<QualificationType> = qualifiersList.filter(
-      (el: QualificationType): boolean => el.title === text
+  const HandleSelect = (e: any) => {
+    const { selectedValue, selectedTextAreaValue } = useSelect(
+      qualifiersList,
+      e
     );
-    dispatch(setSelectedQualification(text));
-    dispatch(setTextAreaValue(filteredIncoterm[0]?.template));
+    dispatch(setSelectedQualification(selectedValue));
+    dispatch(setTextAreaValue(selectedTextAreaValue));
   };
 
   const handleDelete = (dataToDelete: IDataType) => {
@@ -42,5 +40,5 @@ export const useHandleFunctions = () => {
     dispatch(setTableData(newData));
   };
 
-  return { handleDelete, handleSelect, handleAdd };
+  return { handleDelete, HandleSelect, handleAdd };
 };

@@ -10,3 +10,9 @@ export interface IDataType {
   qualifiaction: string;
   requirements: string;
 }
+
+export interface ICriteria {
+  id: number;
+  title: string;
+  template: string | null;
+}

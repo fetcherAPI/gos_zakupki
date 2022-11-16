@@ -22,7 +22,7 @@ export const Qualification = () => {
   const { qualifiersList, tableData, textAreaValue } = useAppSelector(
     (state) => state.Qualification
   );
-  const { handleSelect, handleAdd, handleDelete } = useHandleFunctions();
+  const { HandleSelect, handleAdd, handleDelete } = useHandleFunctions();
   const handleNext = useContext(handleNextContext);
   const { TextArea } = Input;
 
@@ -88,7 +88,7 @@ export const Qualification = () => {
         }}
       >
         <Form.Item name='qualification' label='КВАЛИФИКАЦИЯ'>
-          <Select placeholder='' onClick={(e: any) => handleSelect(e)}>
+          <Select placeholder='' onClick={(e: any) => HandleSelect(e)}>
             {incotermSelectItems}
           </Select>
         </Form.Item>
