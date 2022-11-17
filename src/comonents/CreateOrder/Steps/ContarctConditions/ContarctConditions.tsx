@@ -1,10 +1,22 @@
 import React from "react";
 import { validationRules } from "../AddNewLot/validationShcema";
-import { Form, Button, Checkbox, DatePicker, Input, Radio } from "antd";
+import { Form, Button, DatePicker, Input, Radio } from "antd";
 import { Incoterms } from "../../../Incoterms";
+import { useAppDispatch, useAppSelector } from "../../../../hook/reduxHooks";
+import {
+  setContractConditions,
+  setTechnicalControl,
+  setSparePart,
+  setEnsure,
+} from "../../../../state/slices/ContarctConditionsSlice";
 type Props = {};
 
 export const ContarctConditions = (props: Props) => {
+  const dispatch = useAppDispatch();
+  const { contractConditions } = useAppSelector(
+    (state) => state.contractConditions
+  );
+  const { technicalControl, sparePart, ensure } = contractConditions[0];
   const { TextArea } = Input;
   return (
     <div>
@@ -14,6 +26,7 @@ export const ContarctConditions = (props: Props) => {
         wrapperCol={{ span: 14 }}
         onFinish={(values) => {
           console.log({ values });
+          dispatch(setContractConditions(values));
         }}
         onFinishFailed={(error) => {
           console.log({ error });
@@ -198,46 +211,56 @@ export const ContarctConditions = (props: Props) => {
             validationRules("required", "Это обязательное поле для заполнения"),
           ]}
         >
-          <Radio.Group>
+          <Radio.Group onChange={() => dispatch(setTechnicalControl())}>
             <Radio value={true}>да</Radio>
             <Radio value={false}>Нет</Radio>
           </Radio.Group>
         </Form.Item>
         {/*Блок для описания ТЕХНИЧЕСКИЙ КОНТРОЛЬ И ИСПЫТАНИЯ*/}
-        <Form.Item
-          name='processTechinalChecking'
-          label='ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-            validationRules("min", "Минимум 2 сивола", 0, 2),
-            validationRules("max", "Мксимум 1000 сиволов", 1000, 0),
-            validationRules("whitespace", "пустой пробел"),
-          ]}
-        >
-          <TextArea
-            showCount
-            maxLength={1000}
-            placeholder='УКАЖИТЕ ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ И ИСПЫТАНИЙ, А ТАКЖЕ ЛЮБЫЕ ИСПЫТАНИЯ ДО ОТГРУЗКИ ТОВАРОВ И ПРИ ОКОНЧАТЕЛЬНОЙ ПРИЕМКЕ'
-            autoSize={{ minRows: 3 }}
-          />
-        </Form.Item>
-        <Form.Item
-          name='placeTechnialCheck'
-          label='ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-            validationRules("min", "Минимум 2 сивола", 0, 2),
-            validationRules("max", "Мксимум 1000 сиволов", 255, 0),
-            validationRules("whitespace", "пустой пробел"),
-          ]}
-        >
-          <TextArea
-            showCount
-            maxLength={255}
-            placeholder='УКАЖИТЕ МЕСТО ПРЕДПОЛАГАЕМОГО ТЕХ. КОНТРОЛЯ И ИСПЫТАНИЙ'
-            autoSize={{ minRows: 3 }}
-          />
-        </Form.Item>
+        {technicalControl ? (
+          <div>
+            <Form.Item
+              name='processTechinalChecking'
+              label='ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+                validationRules("min", "Минимум 2 сивола", 0, 2),
+                validationRules("max", "Мксимум 1000 сиволов", 1000, 0),
+                validationRules("whitespace", "пустой пробел"),
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={1000}
+                placeholder='УКАЖИТЕ ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ И ИСПЫТАНИЙ, А ТАКЖЕ ЛЮБЫЕ ИСПЫТАНИЯ ДО ОТГРУЗКИ ТОВАРОВ И ПРИ ОКОНЧАТЕЛЬНОЙ ПРИЕМКЕ'
+                autoSize={{ minRows: 3 }}
+              />
+            </Form.Item>
+            <Form.Item
+              name='placeTechnialCheck'
+              label='ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+                validationRules("min", "Минимум 2 сивола", 0, 2),
+                validationRules("max", "Мксимум 1000 сиволов", 255, 0),
+                validationRules("whitespace", "пустой пробел"),
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={255}
+                placeholder='УКАЖИТЕ МЕСТО ПРЕДПОЛАГАЕМОГО ТЕХ. КОНТРОЛЯ И ИСПЫТАНИЙ'
+                autoSize={{ minRows: 3 }}
+              />
+            </Form.Item>
+          </div>
+        ) : null}
 
         {/* ЗАПАСНЫЕ ЧАСТИ*/}
         <Form.Item
@@ -247,104 +270,128 @@ export const ContarctConditions = (props: Props) => {
             validationRules("required", "Это обязательное поле для заполнения"),
           ]}
         >
-          <Radio.Group>
+          <Radio.Group onChange={() => dispatch(setSparePart())}>
             <Radio value={true}>да</Radio>
             <Radio value={false}>Нет</Radio>
           </Radio.Group>
         </Form.Item>
         {/*Блок для описания ЗАПАСНЫЕ ЧАСТИ*/}
-        <Form.Item
-          name='DepsAndExtraRequirmentsForSparePart'
-          label='ПЕРЕЧЕНЬ ЗАПЧАСТЕЙ И ДОПОЛНИТЕЛЬНЫЕ ТРЕБОВАНИЯ'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-            validationRules("min", "Минимум 2 сивола", 0, 2),
-            validationRules("max", "Мксимум 1000 сиволов", 255, 0),
-            validationRules("whitespace", "пустой пробел"),
-          ]}
-        >
-          <TextArea
-            showCount
-            maxLength={255}
-            placeholder='ПЕРЕЧЕНЬ ЗАПЧАСТЕЙ И ДОПОЛНИТЕЛЬНЫЕ ТРЕБОВАНИЯ О ЗАПАСНЫХ ЧАСТЯХ, ИЗГОТАВЛИВАЕМЫХ ПОСТАВЩИКОМ'
-            autoSize={{ minRows: 3 }}
-          />
-        </Form.Item>
+        {sparePart ? (
+          <div>
+            <Form.Item
+              name='DepsAndExtraRequirmentsForSparePart'
+              label='ПЕРЕЧЕНЬ ЗАПЧАСТЕЙ И ДОПОЛНИТЕЛЬНЫЕ ТРЕБОВАНИЯ'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+                validationRules("min", "Минимум 2 сивола", 0, 2),
+                validationRules("max", "Мксимум 1000 сиволов", 255, 0),
+                validationRules("whitespace", "пустой пробел"),
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={255}
+                placeholder='ПЕРЕЧЕНЬ ЗАПЧАСТЕЙ И ДОПОЛНИТЕЛЬНЫЕ ТРЕБОВАНИЯ О ЗАПАСНЫХ ЧАСТЯХ, ИЗГОТАВЛИВАЕМЫХ ПОСТАВЩИКОМ'
+                autoSize={{ minRows: 3 }}
+              />
+            </Form.Item>
+          </div>
+        ) : null}
 
         {/* ГАРАНТИЙНЫЙ ПЕРИОД*/}
         <Form.Item
-          name='esure'
+          name='ensure'
           label='ГАРАНТИЯ'
           rules={[
             validationRules("required", "Это обязательное поле для заполнения"),
           ]}
         >
-          <Radio.Group>
+          <Radio.Group onChange={() => dispatch(setEnsure())}>
             <Radio value={true}>да</Radio>
             <Radio value={false}>Нет</Radio>
           </Radio.Group>
         </Form.Item>
         {/*Блок для описания ГАРАНТИЙНЫЙ ПЕРИОД*/}
-        <Form.Item
-          name='ensurePeriod'
-          label='ГАРАНТИЙНЫЙ ПЕРИОД'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-            validationRules("min", "Минимум 2 сивола", 0, 2),
-            validationRules("max", "Мксимум 1000 сиволов", 500, 0),
-            validationRules("whitespace", "пустой пробел"),
-          ]}
-        >
-          <TextArea
-            showCount
-            maxLength={500}
-            placeholder='Укажите период гарантии выраженный в часах работы или месяцев со дня приёмки товара'
-            autoSize={{ minRows: 3 }}
-          />
-        </Form.Item>
-        <Form.Item
-          name='provideRedressPeriod'
-          label='ОБЕСПЕЧИТЬ ИСПРАВЛЕНИЕ'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-            validationRules("min", "Минимум 2 сивола", 0, 2),
-            validationRules("max", "Мксимум 1000 сиволов", 500, 0),
-            validationRules("whitespace", "пустой пробел"),
-          ]}
-        >
-          <Input placeholder='Укажите кол-во дней, за которое поставщик должен исправить дефект или заменить товар' />
-        </Form.Item>
-        <Form.Item
-          name='noMakedEnsureOughts'
-          label='НЕУСТОЙКА ЗА НЕВЫПОЛНЕНИЕ ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-          ]}
-        >
-          <Input
-            type='number'
-            placeholder='Введите в % за каждый день
+        {ensure ? (
+          <div>
+            <Form.Item
+              name='ensurePeriod'
+              label='ГАРАНТИЙНЫЙ ПЕРИОД'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+                validationRules("min", "Минимум 2 сивола", 0, 2),
+                validationRules("max", "Мксимум 1000 сиволов", 500, 0),
+                validationRules("whitespace", "пустой пробел"),
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={500}
+                placeholder='Укажите период гарантии выраженный в часах работы или месяцев со дня приёмки товара'
+                autoSize={{ minRows: 3 }}
+              />
+            </Form.Item>
+            <Form.Item
+              name='provideRedressPeriod'
+              label='ОБЕСПЕЧИТЬ ИСПРАВЛЕНИЕ'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+                validationRules("min", "Минимум 2 сивола", 0, 2),
+                validationRules("max", "Мксимум 1000 сиволов", 500, 0),
+                validationRules("whitespace", "пустой пробел"),
+              ]}
+            >
+              <Input placeholder='Укажите кол-во дней, за которое поставщик должен исправить дефект или заменить товар' />
+            </Form.Item>
+            <Form.Item
+              name='noMakedEnsureOughts'
+              label='НЕУСТОЙКА ЗА НЕВЫПОЛНЕНИЕ ГАРАНТИЙНЫХ ОБЯЗАТЕЛЬСТВ'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+              ]}
+            >
+              <Input
+                type='number'
+                placeholder='Введите в % за каждый день
             Ставка за каждый просроченный день'
-            max={100}
-            min={0}
-            step={0.1}
-          />
-        </Form.Item>
-        <Form.Item
-          name='maximumDeductSum'
-          label='МАКСИМАЛЬНО ВЫЧИТАЕМАЯ СУММА'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-          ]}
-        >
-          <Input
-            type='number'
-            placeholder='Введите значение не превышающую 10% от цены контракта'
-            max={10}
-            min={0}
-            step={0.1}
-          />
-        </Form.Item>
+                max={100}
+                min={0}
+                step={0.1}
+              />
+            </Form.Item>
+            <Form.Item
+              name='maximumDeductSum'
+              label='МАКСИМАЛЬНО ВЫЧИТАЕМАЯ СУММА'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+              ]}
+            >
+              <Input
+                type='number'
+                placeholder='Введите значение не превышающую 10% от цены контракта'
+                max={10}
+                min={0}
+                step={0.1}
+              />
+            </Form.Item>
+          </div>
+        ) : null}
+
         {/* блок выбора документов */}
 
         {/* УРЕГУЛИРОВАНИЕ СПОРОВ*/}
