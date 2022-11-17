@@ -1,6 +1,16 @@
 import React from "react";
 import { validationRules } from "../AddNewLot/validationShcema";
-import { Form, Button, Checkbox, DatePicker, Input, Select, Space } from "antd";
+import {
+  Form,
+  Button,
+  Checkbox,
+  DatePicker,
+  Input,
+  Select,
+  Space,
+  Radio,
+} from "antd";
+import { Incoterms } from "../../../Incoterms";
 type Props = {};
 
 export const ContarctConditions = (props: Props) => {
@@ -37,6 +47,64 @@ export const ContarctConditions = (props: Props) => {
           name='pack'
           label='УПАКОВКА'
           rules={[
+            validationRules("required", "Это обязательное поле для заполнения"),
+            validationRules("min", "Минимум 2 сивола", 0, 2),
+            validationRules("max", "Мксимум 1000 сиволов", 1000, 0),
+            validationRules("whitespace", "пустой пробел"),
+          ]}
+        >
+          <TextArea
+            showCount
+            maxLength={1000}
+            placeholder='Укажите способ упаковки'
+            autoSize={{ minRows: 3 }}
+          />
+        </Form.Item>
+
+        {/* СТРАХОВАНИЕ ТОВАРА */}
+        <Form.Item
+          name='goodsInsurance'
+          label='СТРАХОВАНИЕ ТОВАРА'
+          rules={[
+            validationRules("required", "Это обязательное поле для заполнения"),
+          ]}
+        >
+          <Radio.Group>
+            <Radio value={true}>Да</Radio>
+            <Radio value={false}>Нет</Radio>
+          </Radio.Group>
+        </Form.Item>
+
+        {/* Если страх.товара есть становится видимым блоком */}
+        <Form.Item
+          name='provideCondition'
+          rules={[
+            validationRules("required", "Это обязательное поле для заполнения"),
+          ]}
+          label='УСЛОВИЕ ПОСТАВКИ'
+        >
+          <Incoterms />
+        </Form.Item>
+
+        {/* СОПУТСТВУЮЩИЕ УСЛУГИ */}
+        <Form.Item
+          name='relatedServices'
+          label='СОПУТСТВУЮЩИЕ УСЛУГИ'
+          rules={[
+            validationRules("required", "Это обязательное поле для заполнения"),
+          ]}
+        >
+          <Radio.Group>
+            <Radio value={true}>Да</Radio>
+            <Radio value={false}>Нет</Radio>
+          </Radio.Group>
+        </Form.Item>
+        {/* Если СОПУТСТВУЮЩИЕ УСЛУГИ  есть становится видимым блоком */}
+        <Form.Item
+          name='relatedServicesValue'
+          label='Услуги'
+          rules={[
+            validationRules("required", "Это обязательное поле для заполнения"),
             validationRules("min", "Минимум 2 сивола", 0, 2),
             validationRules("max", "Мксимум 1000 сиволов", 1000, 0),
             validationRules("whitespace", "пустой пробел"),
@@ -64,15 +132,7 @@ export const ContarctConditions = (props: Props) => {
           />
         </Form.Item>
 
-        <Form.Item
-          name='website'
-          label='Website'
-          rules={[{ type: "url", message: "Please enter a valid url" }]}
-          hasFeedback
-        >
-          <Input placeholder='Add your website url' />
-        </Form.Item>
-
+        {/* //checked */}
         <Form.Item
           name='agreement'
           wrapperCol={{ span: 24 }}

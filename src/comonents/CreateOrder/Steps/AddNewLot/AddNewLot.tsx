@@ -1,29 +1,13 @@
-import { Form, Button, Input, Select, Upload } from "antd";
+import { Form, Button, Input, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { validationRules } from "./validationShcema";
-import { ReactNode, useEffect, useState } from "react";
-import { IncotermType } from "../../../../api_swagger/models/Incoterm";
-import { utilControllerService } from "../../../../services/utilContollerService";
+import { useState } from "react";
 import DocumnetSelector from "../../../DocumentSelector";
+import { Incoterms } from "../../../Incoterms";
 
 export const AddNewLot = () => {
-  const [incoterm, setIncoterm] = useState<IncotermType[]>([]);
   const [documentsList, setDocumentsList] = useState<any>();
   const { TextArea } = Input;
-
-  useEffect(() => {
-    utilControllerService
-      .getListOfIncoterm()
-      .then((res) => setIncoterm(res.data));
-  }, []);
-
-  const incotermSelectItems = incoterm.map((el: IncotermType): ReactNode => {
-    return (
-      <Select.Option key={el.data} value={el.data}>
-        {el.title}
-      </Select.Option>
-    );
-  });
 
   const props = {
     action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
@@ -130,7 +114,7 @@ export const AddNewLot = () => {
         name='0foreingCitizen'
         label='Для нерезидентов Кыргызской Республики'
       >
-        <Select placeholder=''>{incotermSelectItems}</Select>
+        <Incoterms />
         <br />
         <br />
         <Form.Item
