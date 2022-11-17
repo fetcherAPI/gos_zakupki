@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { stat } from "fs";
 
 interface IData {
   DepsAndExtraRequirmentsForSparePart: string;
@@ -23,13 +22,6 @@ interface IData {
   sparePart: boolean;
   technicalControl: boolean;
   paymentTerm: string;
-}
-
-interface IPayload {
-  payload: {
-    value: string;
-    prevState: boolean;
-  };
 }
 
 interface Initial {
