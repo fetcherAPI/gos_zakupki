@@ -3,12 +3,13 @@ import { Form, Button, Input, Select, DatePicker, Table, Space } from "antd";
 import Switcher from "../../../../UIComponents/switch";
 import classes from "./SpecalRequirments.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../../hook/reduxHooks";
-import { useHandleFunctions } from "../Qualification/functions";
 import { ICriteria } from "../../../../models/AppTypes/QualificationTypes";
 import { utilControllerService } from "../../../../services/utilContollerService";
 import {
+  deleteFromCriteriasGradeTableData,
   setConditionalGradeValue,
   setCriteriasGradeList,
+  setCriteriasGradeTableData,
   setSelectedCriteriaGarde,
 } from "../../../../state/slices/SpecialRequirments";
 import { useSelect } from "../../../../hook/useSelect";
@@ -16,13 +17,18 @@ import { DeleteOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 
 type Props = {};
+interface INewDataType {
+  key: number;
+  criteriaGrade: string;
+  conditionGrade: string;
+}
 
 const Appoint = () => {
   const { TextArea } = Input;
   return (
     <Form
       autoComplete='off'
-      labelCol={{ span: 3 }}
+      labelCol={{ span: 5 }}
       wrapperCol={{ span: 10 }}
       onFinish={(values) => {
         console.log({ values });
@@ -44,7 +50,7 @@ const Appoint = () => {
       >
         <DatePicker
           showTime
-          style={{ width: "30%" }}
+          style={{ width: "100%" }}
           picker='date'
           placeholder='Дата и время'
         />
@@ -73,44 +79,20 @@ const Appoint = () => {
   );
 };
 
-const columns: ColumnsType<any> = [
-  {
-    title: "Критерий оценки",
-    dataIndex: "criteriaGrade",
-    key: "criteriaGrade",
-  },
-  {
-    title: "Условие оценки",
-    dataIndex: "conditionGrade",
-    key: "conditionGrade",
-  },
-
-  {
-    title: "Настройки",
-    key: "setting",
-    render: (_, record) => (
-      <Space size='middle'>
-        <DeleteOutlined
-          style={{ fontSize: "30px", color: "#d84949", cursor: "pointer" }}
-        />
-      </Space>
-    ),
-  },
-];
-
 export const SpecalRequirments = (props: Props) => {
-  const { criteriasGradeList, conditionalGradeValue, criteriasGradeTableData } =
-    useAppSelector((state) => state.SpecialRequirments);
+  const {
+    criteriasGradeList,
+    conditionalGradeValue,
+    criteriasGradeTableData,
+    selectedCriteriaGrade,
+  } = useAppSelector((state) => state.SpecialRequirments);
   const [isAppointBlockVisible, setIsAppointBlockVisible] =
     useState<boolean>(true);
-
   const { TextArea } = Input;
   const dispatch = useAppDispatch();
-  const { handleAdd, handleDelete, HandleSelect } = useHandleFunctions();
 
   useEffect(() => {
     utilControllerService.getListOfCriteriasList().then((res) => {
-      console.log("res", res);
       dispatch(setCriteriasGradeList(res.data));
     });
   }, []);
@@ -123,19 +105,56 @@ export const SpecalRequirments = (props: Props) => {
     dispatch(setSelectedCriteriaGarde(selectedValue));
     dispatch(setConditionalGradeValue(selectedTextAreaValue));
   };
+
+  const handleAdd = () => {
+    const newData: INewDataType = {
+      key: Date.now(),
+      criteriaGrade: selectedCriteriaGrade,
+      conditionGrade: conditionalGradeValue,
+    };
+    dispatch(setCriteriasGradeTableData(newData));
+    dispatch(setConditionalGradeValue(""));
+  };
+
+  const handleDelete = () => {};
+
   const incotermSelectItems = criteriasGradeList.map(
     (el: ICriteria): ReactNode => {
       return (
-        <Select.Option
-          key={el.id}
-          value={el.template}
-          onClick={(e: any) => HandleSelectList(e)}
-        >
+        <Select.Option key={el.id} value={el.title}>
           {el.title}
         </Select.Option>
       );
     }
   );
+
+  console.log("criteriasGradeTableData", criteriasGradeTableData);
+
+  const columns: ColumnsType<any> = [
+    {
+      title: "Критерий оценки",
+      dataIndex: "criteriaGrade",
+      key: "criteriaGrade",
+    },
+    {
+      title: "Условие оценки",
+      dataIndex: "conditionGrade",
+      key: "conditionGrade",
+    },
+
+    {
+      title: "Настройки",
+      key: "setting",
+      render: (_, record) => (
+        <Space size='middle' key={record.key}>
+          <DeleteOutlined
+            onClick={() => dispatch(deleteFromCriteriasGradeTableData(record))}
+            style={{ fontSize: "30px", color: "#d84949", cursor: "pointer" }}
+          />
+        </Space>
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -152,10 +171,10 @@ export const SpecalRequirments = (props: Props) => {
 
       <Form
         autoComplete='off'
-        labelCol={{ span: 3 }}
+        labelCol={{ span: 5 }}
         wrapperCol={{ span: 10 }}
         onFinish={(values) => {
-          handleAdd(values);
+          handleAdd();
         }}
         onFinishFailed={(error) => {
           console.log({ error });
@@ -181,7 +200,12 @@ export const SpecalRequirments = (props: Props) => {
           <p style={{ opacity: 0 }}>{conditionalGradeValue}</p>
         </Form.Item>
         <Form.Item name='button' wrapperCol={{ span: 24 }}>
-          <Button block type='primary' htmlType='submit'>
+          <Button
+            block
+            type='primary'
+            htmlType='submit'
+            disabled={!conditionalGradeValue ? true : false}
+          >
             Добавить
           </Button>
         </Form.Item>

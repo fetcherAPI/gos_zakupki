@@ -10,6 +10,7 @@ import { useSelect } from "../../../../hook/useSelect";
 
 export const useHandleFunctions = () => {
   const dispatch = useAppDispatch();
+
   const { qualifiersList, tableData, selectedQualification, textAreaValue } =
     useAppSelector((state) => state.Qualification);
 

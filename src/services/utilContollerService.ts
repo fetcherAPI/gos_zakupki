@@ -16,6 +16,6 @@ export class utilControllerService {
   }
 
   static async getListOfCriteriasList(): Promise<AxiosResponse> {
-    return api.get("http://10.200.24.103/api/dashboard");
+    return api.get("http://localhost:8000/criterias");
   }
 }
