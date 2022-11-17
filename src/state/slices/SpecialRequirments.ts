@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Action } from "@remix-run/router";
 import { ICriteria } from "../../models/AppTypes/QualificationTypes";
 
 interface IState {
@@ -25,13 +24,9 @@ export const SpecialRequirmentsSlice = createSlice({
       state.criteriasGradeList = action.payload;
     },
     deleteFromCriteriasGradeTableData(state, action) {
-      console.log("acion.payload", action.payload);
-      const newTableData: Array<typeof action.payload> =
-        state.criteriasGradeTableData.filter(
-          (el: typeof action.payload) => el.key !== action.payload.key
-        );
-      console.log("newTableData", newTableData);
-      state.criteriasGradeTableData = newTableData;
+      state.criteriasGradeTableData = state.criteriasGradeTableData.filter(
+        (el: typeof action.payload) => el.key !== action.payload.key
+      );
     },
     setSelectedCriteriaGarde(state, action) {
       state.selectedCriteriaGrade = action.payload;

@@ -1,3 +1,4 @@
+import { ContarctConditions } from "./ContarctConditions/ContarctConditions";
 import { LotStep } from "./LotsStep";
 import OrganizationInfoStep from "./OrganizationInfoStep";
 import { Qualification } from "./Qualification/Qualification";
@@ -22,7 +23,7 @@ export const STEPS = [
   },
   {
     label: "Особые условаия контракта",
-    element: <OrganizationInfoStep />,
+    element: <ContarctConditions />,
   },
   {
     label: "Комиссия по закупке",
