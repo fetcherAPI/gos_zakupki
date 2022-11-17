@@ -17,6 +17,7 @@ export const ContarctConditions = (props: Props) => {
     (state) => state.contractConditions
   );
   const { technicalControl, sparePart, ensure } = contractConditions[0];
+
   const { TextArea } = Input;
   return (
     <div>

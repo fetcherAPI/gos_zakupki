@@ -7,7 +7,9 @@ interface IData {
   disputeControl: boolean;
   ensureContract: string;
   ensurePeriod: string;
+
   ensure: boolean;
+
   goodsInsurance: boolean;
   maximumDeductSum: string;
   noMakedEnsureOughts: string;
@@ -43,7 +45,9 @@ const initialState: Initial = {
       disputeControl: false,
       ensureContract: "",
       ensurePeriod: "",
+
       ensure: false,
+
       goodsInsurance: false,
       maximumDeductSum: "",
       noMakedEnsureOughts: "",
@@ -71,6 +75,7 @@ export const contractConditionsSlice = createSlice({
       const currentState = state.contractConditions[0]["technicalControl"];
       state.contractConditions[0]["technicalControl"] = !currentState;
     },
+
     setSparePart(state) {
       const currentState = state.contractConditions[0]["sparePart"];
       state.contractConditions[0]["sparePart"] = !currentState;
