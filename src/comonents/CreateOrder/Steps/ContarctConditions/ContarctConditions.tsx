@@ -1,4 +1,3 @@
-import React from "react";
 import { validationRules } from "../AddNewLot/validationShcema";
 import { Form, Button, DatePicker, Input, Radio } from "antd";
 import { Incoterms } from "../../../Incoterms";
@@ -9,6 +8,7 @@ import {
   setSparePart,
   setEnsure,
 } from "../../../../state/slices/ContarctConditionsSlice";
+import classes from "./ContarctConditions.module.scss";
 type Props = {};
 
 export const ContarctConditions = (props: Props) => {
@@ -22,9 +22,8 @@ export const ContarctConditions = (props: Props) => {
   return (
     <div>
       <Form
+        className={classes.form__wrapper}
         autoComplete='off'
-        labelCol={{ span: 10 }}
-        wrapperCol={{ span: 14 }}
         onFinish={(values) => {
           console.log({ values });
           dispatch(setContractConditions(values));
@@ -36,7 +35,8 @@ export const ContarctConditions = (props: Props) => {
         {/* ГАРАНТИЙНОЕ ОБЕСПЕЧЕНИЕ ИСПОЛНЕНИЯ КОНТРАКТА */}
         <Form.Item
           name='ensureContract'
-          label='ГАРАНТИЙНОЕ ОБЕСПЕЧЕНИЕ ИСПОЛНЕНИЯ КОНТРАКТА'
+          className={classes.form__item}
+          label={"ГАРАНТИЙНОЕ ОБЕСПЕЧЕНИЕ ИСПОЛНЕНИЯ КОНТРАКТА"}
           rules={[
             validationRules("required", "Это обязательное поле для заполнения"),
           ]}
