@@ -2,9 +2,19 @@ import React from "react";
 import { validationRules } from "../AddNewLot/validationShcema";
 import { Form, Button, Checkbox, DatePicker, Input, Radio } from "antd";
 import { Incoterms } from "../../../Incoterms";
+import { useAppDispatch, useAppSelector } from "../../../../hook/reduxHooks";
+import {
+  setContractConditions,
+  setTechnicalControl,
+} from "../../../../state/slices/ContarctConditionsSlice";
 type Props = {};
 
 export const ContarctConditions = (props: Props) => {
+  const dispatch = useAppDispatch();
+  const { contractConditions } = useAppSelector(
+    (state) => state.contractConditions
+  );
+  const { technicalControl } = contractConditions[0];
   const { TextArea } = Input;
   return (
     <div>
@@ -14,6 +24,7 @@ export const ContarctConditions = (props: Props) => {
         wrapperCol={{ span: 14 }}
         onFinish={(values) => {
           console.log({ values });
+          dispatch(setContractConditions(values));
         }}
         onFinishFailed={(error) => {
           console.log({ error });
@@ -198,46 +209,56 @@ export const ContarctConditions = (props: Props) => {
             validationRules("required", "Это обязательное поле для заполнения"),
           ]}
         >
-          <Radio.Group>
+          <Radio.Group onChange={() => dispatch(setTechnicalControl())}>
             <Radio value={true}>да</Radio>
             <Radio value={false}>Нет</Radio>
           </Radio.Group>
         </Form.Item>
         {/*Блок для описания ТЕХНИЧЕСКИЙ КОНТРОЛЬ И ИСПЫТАНИЯ*/}
-        <Form.Item
-          name='processTechinalChecking'
-          label='ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-            validationRules("min", "Минимум 2 сивола", 0, 2),
-            validationRules("max", "Мксимум 1000 сиволов", 1000, 0),
-            validationRules("whitespace", "пустой пробел"),
-          ]}
-        >
-          <TextArea
-            showCount
-            maxLength={1000}
-            placeholder='УКАЖИТЕ ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ И ИСПЫТАНИЙ, А ТАКЖЕ ЛЮБЫЕ ИСПЫТАНИЯ ДО ОТГРУЗКИ ТОВАРОВ И ПРИ ОКОНЧАТЕЛЬНОЙ ПРИЕМКЕ'
-            autoSize={{ minRows: 3 }}
-          />
-        </Form.Item>
-        <Form.Item
-          name='placeTechnialCheck'
-          label='ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ'
-          rules={[
-            validationRules("required", "Это обязательное поле для заполнения"),
-            validationRules("min", "Минимум 2 сивола", 0, 2),
-            validationRules("max", "Мксимум 1000 сиволов", 255, 0),
-            validationRules("whitespace", "пустой пробел"),
-          ]}
-        >
-          <TextArea
-            showCount
-            maxLength={255}
-            placeholder='УКАЖИТЕ МЕСТО ПРЕДПОЛАГАЕМОГО ТЕХ. КОНТРОЛЯ И ИСПЫТАНИЙ'
-            autoSize={{ minRows: 3 }}
-          />
-        </Form.Item>
+        {technicalControl ? (
+          <div>
+            <Form.Item
+              name='processTechinalChecking'
+              label='ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+                validationRules("min", "Минимум 2 сивола", 0, 2),
+                validationRules("max", "Мксимум 1000 сиволов", 1000, 0),
+                validationRules("whitespace", "пустой пробел"),
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={1000}
+                placeholder='УКАЖИТЕ ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ И ИСПЫТАНИЙ, А ТАКЖЕ ЛЮБЫЕ ИСПЫТАНИЯ ДО ОТГРУЗКИ ТОВАРОВ И ПРИ ОКОНЧАТЕЛЬНОЙ ПРИЕМКЕ'
+                autoSize={{ minRows: 3 }}
+              />
+            </Form.Item>
+            <Form.Item
+              name='placeTechnialCheck'
+              label='ПРОЦЕДУРЫ ТЕХНИЧЕСКОГО КОНТРОЛЯ'
+              rules={[
+                validationRules(
+                  "required",
+                  "Это обязательное поле для заполнения"
+                ),
+                validationRules("min", "Минимум 2 сивола", 0, 2),
+                validationRules("max", "Мксимум 1000 сиволов", 255, 0),
+                validationRules("whitespace", "пустой пробел"),
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={255}
+                placeholder='УКАЖИТЕ МЕСТО ПРЕДПОЛАГАЕМОГО ТЕХ. КОНТРОЛЯ И ИСПЫТАНИЙ'
+                autoSize={{ minRows: 3 }}
+              />
+            </Form.Item>
+          </div>
+        ) : null}
 
         {/* ЗАПАСНЫЕ ЧАСТИ*/}
         <Form.Item

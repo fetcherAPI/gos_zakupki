@@ -4,6 +4,7 @@ import organizationInfoReducer from "./slices/OraganizationInfoSlice";
 import createOrderMainReducer from "./slices/CreateOrderMainSlice";
 import QualificationReducer from "./slices/Qualification";
 import SpecialRequirmentsReducer from "./slices/SpecialRequirments";
+import contractConditionsReducer from "./slices/ContarctConditionsSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -11,6 +12,7 @@ export const store = configureStore({
     createOrderMain: createOrderMainReducer,
     Qualification: QualificationReducer,
     SpecialRequirments: SpecialRequirmentsReducer,
+    contractConditions: contractConditionsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
