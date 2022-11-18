@@ -1,2 +1,9 @@
 .form__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.selected_file_name {
+  display: flex;
+  align-items: center;
+  column-gap: 1%;
 }
