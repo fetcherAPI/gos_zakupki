@@ -63,18 +63,15 @@ export const contractConditionsSlice = createSlice({
     setContractConditions(state, action) {
       state.contractConditions = action.payload;
     },
-    setTechnicalControl(state) {
-      const currentState = state.contractConditions[0]["technicalControl"];
-      state.contractConditions[0]["technicalControl"] = !currentState;
+    setTechnicalControl(state, action) {
+      state.contractConditions[0]["technicalControl"] = action.payload;
     },
 
-    setSparePart(state) {
-      const currentState = state.contractConditions[0]["sparePart"];
-      state.contractConditions[0]["sparePart"] = !currentState;
+    setSparePart(state, action) {
+      state.contractConditions[0]["sparePart"] = action.payload;
     },
-    setEnsure(state) {
-      const currentState = state.contractConditions[0]["ensure"];
-      state.contractConditions[0]["ensure"] = !currentState;
+    setEnsure(state, action) {
+      state.contractConditions[0]["ensure"] = action.payload;
     },
   },
 });

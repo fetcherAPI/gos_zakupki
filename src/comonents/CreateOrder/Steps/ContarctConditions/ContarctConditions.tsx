@@ -212,7 +212,11 @@ export const ContarctConditions = (props: Props) => {
             validationRules("required", "Это обязательное поле для заполнения"),
           ]}
         >
-          <Radio.Group onChange={() => dispatch(setTechnicalControl())}>
+          <Radio.Group
+            onChange={(e) => {
+              dispatch(setTechnicalControl(e.target.value));
+            }}
+          >
             <Radio value={true}>да</Radio>
             <Radio value={false}>Нет</Radio>
           </Radio.Group>
@@ -271,7 +275,11 @@ export const ContarctConditions = (props: Props) => {
             validationRules("required", "Это обязательное поле для заполнения"),
           ]}
         >
-          <Radio.Group onChange={() => dispatch(setSparePart())}>
+          <Radio.Group
+            onChange={(e) => {
+              dispatch(setSparePart(e.target.value));
+            }}
+          >
             <Radio value={true}>да</Radio>
             <Radio value={false}>Нет</Radio>
           </Radio.Group>
@@ -310,7 +318,11 @@ export const ContarctConditions = (props: Props) => {
             validationRules("required", "Это обязательное поле для заполнения"),
           ]}
         >
-          <Radio.Group onChange={() => dispatch(setEnsure())}>
+          <Radio.Group
+            onChange={(e) => {
+              dispatch(setEnsure(e.target.value));
+            }}
+          >
             <Radio value={true}>да</Radio>
             <Radio value={false}>Нет</Radio>
           </Radio.Group>

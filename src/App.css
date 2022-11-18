@@ -7,10 +7,10 @@
 }
 
 .ant-form-item-label {
-  align-items: center;
 }
 
-.ant-input {
+.ant-input,
+.ant-picker-input > input {
   height: 44px;
   font-size: 16px;
 }
