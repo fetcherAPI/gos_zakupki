@@ -6,9 +6,7 @@ interface IData {
   disputeControl: boolean;
   ensureContract: string;
   ensurePeriod: string;
-
   ensure: boolean;
-
   goodsInsurance: boolean;
   maximumDeductSum: string;
   noMakedEnsureOughts: string;
@@ -22,6 +20,7 @@ interface IData {
   sparePart: boolean;
   technicalControl: boolean;
   paymentTerm: string;
+  contractProject: any;
 }
 
 interface Initial {
@@ -37,9 +36,7 @@ const initialState: Initial = {
       disputeControl: false,
       ensureContract: "",
       ensurePeriod: "",
-
       ensure: false,
-
       goodsInsurance: false,
       maximumDeductSum: "",
       noMakedEnsureOughts: "",
@@ -52,6 +49,7 @@ const initialState: Initial = {
       relatedServicesValue: "",
       sparePart: false,
       technicalControl: false,
+      contractProject: "",
     },
   ],
 };
@@ -61,7 +59,7 @@ export const contractConditionsSlice = createSlice({
   initialState,
   reducers: {
     setContractConditions(state, action) {
-      state.contractConditions = action.payload;
+      state.contractConditions = [action.payload];
     },
     setTechnicalControl(state, action) {
       state.contractConditions[0]["technicalControl"] = action.payload;
@@ -73,6 +71,9 @@ export const contractConditionsSlice = createSlice({
     setEnsure(state, action) {
       state.contractConditions[0]["ensure"] = action.payload;
     },
+    setContractProject(state, action) {
+      state.contractConditions[0].contractProject = action.payload;
+    },
   },
 });
 
@@ -81,6 +82,7 @@ export const {
   setTechnicalControl,
   setSparePart,
   setEnsure,
+  setContractProject,
 } = contractConditionsSlice.actions;
 
 export default contractConditionsSlice.reducer;
