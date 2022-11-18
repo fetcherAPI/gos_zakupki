@@ -7,8 +7,12 @@ import {
   setTechnicalControl,
   setSparePart,
   setEnsure,
+  setContractProject,
 } from "../../../../state/slices/ContarctConditionsSlice";
+import { UploadOutlined, CloseOutlined } from "@ant-design/icons";
 import classes from "./ContarctConditions.module.scss";
+import styles from "../Steps.module.scss";
+
 type Props = {};
 
 export const ContarctConditions = (props: Props) => {
@@ -16,9 +20,14 @@ export const ContarctConditions = (props: Props) => {
   const { contractConditions } = useAppSelector(
     (state) => state.contractConditions
   );
-  const { technicalControl, sparePart, ensure } = contractConditions[0];
-
+  const { technicalControl, sparePart, ensure, contractProject } =
+    contractConditions[0];
   const { TextArea } = Input;
+
+  const buttonItemLayout = {
+    wrapperCol: { span: 26, align: "end" },
+  };
+
   return (
     <div>
       <Form
@@ -416,15 +425,60 @@ export const ContarctConditions = (props: Props) => {
           ]}
         >
           <Radio.Group>
-            <Radio value={true}>Третейский суд</Radio>
-            <Radio value={false}>
+            <Radio value={"ARBITRAL_TRIBUNAL"}>Третейский суд</Radio>
+            <Radio value={"KR_TRIBUNAL"}>
               Суд общей юрисдикции Кыргызской Республики
             </Radio>
           </Radio.Group>
         </Form.Item>
-        <Form.Item wrapperCol={{ span: 24 }}>
-          <Button block type='primary' htmlType='submit'>
-            Register
+
+        {/* ПРОЕКТ КОНТРАКТА */}
+        <Form.Item label='ПРОЕКТ КОНТРАКТА'>
+          <label
+            htmlFor='upload-first-photo'
+            onChange={(e: any) =>
+              dispatch(setContractProject(e.target.files[0]))
+            }
+          >
+            <input
+              style={{ display: "none" }}
+              id='upload-first-photo'
+              name='upload-first-photo'
+              type='file'
+            />
+            <div className={styles.button_pick_img}>
+              <UploadOutlined
+                style={{
+                  fontSize: "28px",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+              />
+              Прикрепить
+            </div>
+          </label>
+          {contractProject?.name && (
+            <div className={classes.selected_file_name}>
+              <span>{contractProject.name}</span>
+              <CloseOutlined
+                onClick={() => dispatch(setContractProject({}))}
+                style={{
+                  fontSize: "14px",
+                  color: "red",
+                  cursor: "pointer",
+                }}
+              />
+            </div>
+          )}
+        </Form.Item>
+        <Form.Item {...buttonItemLayout}>
+          <Button
+            block
+            type='primary'
+            htmlType='submit'
+            className={styles.save_btn}
+          >
+            Сохранить
           </Button>
         </Form.Item>
       </Form>
