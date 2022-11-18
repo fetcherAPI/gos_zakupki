@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Button, Select } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Select, Checkbox } from "antd";
 import classes from "./MainData.module.scss";
 import { useNavigate } from "react-router-dom";
 import { RouteNames } from "../../../routes";
@@ -14,6 +14,7 @@ import {
 const MainData: React.FC = () => {
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
+  const [checked, setChecked] = useState(true);
 
   const {
     buyingFormatsList,
@@ -94,6 +95,21 @@ const MainData: React.FC = () => {
       </div>
       <hr />
       <div className={classes.selector}>
+        <p>Способ оценки предложений</p>
+        <Select
+          placeholder={"Выберите Способ оценки предложений"}
+          className={classes.select}
+          onClick={(e) => handleSelectBuyingFormat(e)}
+          status={buyingFormatValue ? undefined : "error"}
+          loading={queryStatus === "pending" ? true : false}
+          options={buyingFormatsList}
+        />
+      </div>
+      {buyingFormatValue ? null : (
+        <p className={classes.error_txt}>поле обязательно для заполнения</p>
+      )}
+      <hr />
+      <div className={classes.selector}>
         <p>Внешняя системак</p>
         <Select
           disabled
@@ -104,9 +120,24 @@ const MainData: React.FC = () => {
       </div>
       <hr />
       <div className={classes.selector}>
+        <p>Рамочное соглашение</p>
+        <div className={classes.checkbox_block}>
+          <Checkbox
+            checked={checked}
+            onChange={() => setChecked((prev) => !prev)}
+          >
+            {checked
+              ? `Да : Закупка проводится для подписания рамочного соглашения в соответствии с частью 2 статьи 18 Закона Кыргызской Республики "О государственных закупках". При этом отмечаем, что в соответствии с частью 1 статьи 18 Закона Кыргызской Республики "О государственных закупках", рамочное соглашение будет заключено с одним и более поставщиками на срок не более 3 лет.`
+              : "Нет"}
+          </Checkbox>
+        </div>
+      </div>
+      <hr />
+      <div className={classes.selector}>
         <input type='checkbox' />
         <p>Применить асимметричное шифрование</p>
       </div>
+
       <Button
         type='primary'
         disabled={isButtonDisabled()}

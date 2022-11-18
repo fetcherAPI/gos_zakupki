@@ -13,9 +13,7 @@ import { UploadOutlined, CloseOutlined } from "@ant-design/icons";
 import classes from "./ContarctConditions.module.scss";
 import styles from "../Steps.module.scss";
 
-type Props = {};
-
-export const ContarctConditions = (props: Props) => {
+export const ContarctConditions = () => {
   const dispatch = useAppDispatch();
   const { contractConditions } = useAppSelector(
     (state) => state.contractConditions
@@ -471,6 +469,7 @@ export const ContarctConditions = (props: Props) => {
             </div>
           )}
         </Form.Item>
+
         <Form.Item {...buttonItemLayout}>
           <Button
             block
