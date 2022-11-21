@@ -10,7 +10,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { NavLink } from "react-router-dom";
-import { CloseBtnIcon } from "../../assets/img/export";
+import { CloseBtnIcon, GerbKg } from "../../assets/img/export";
 import { Icon, icons } from "./icons";
 import { Drawer, DrawerHeader } from "./Sidebar.styled";
 import { MenuUnfoldOutlined } from "@ant-design/icons";
@@ -30,9 +30,11 @@ const Sidebar = () => {
       <Drawer variant='permanent' open={open}>
         {open ? (
           <DrawerHeader>
-            <Typography variant='h5' noWrap>
-              Портал госЗакупок
-            </Typography>
+            <div className={classes.header}>
+              <GerbKg />
+              <h1>ГосЗакупок</h1>
+            </div>
+
             <IconButton onClick={handleDrawer}>
               <CloseBtnIcon />
             </IconButton>
