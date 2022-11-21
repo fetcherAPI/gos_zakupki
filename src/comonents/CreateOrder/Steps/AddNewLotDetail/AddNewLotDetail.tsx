@@ -58,7 +58,9 @@ export const AddNewLotDetail = (props: Props) => {
         </div>
       </div>
       <div className={classes.forming_lot_block}>
+        <hr />
         <h1 className={classes.header}>Формирование перечня товаров в лоте</h1>
+
         <Form
           autoComplete='off'
           className={classes.lot_form}
@@ -72,7 +74,7 @@ export const AddNewLotDetail = (props: Props) => {
           <div>
             <p>Наименование продукта</p>
             <Form.Item
-              name='lotName'
+              name='productName'
               rules={[
                 validationRules("required", "Поле  обязательно для заполнения"),
                 validationRules("min", "Минимум 3 три символа", 0, 3),
@@ -87,56 +89,50 @@ export const AddNewLotDetail = (props: Props) => {
               />
             </Form.Item>
           </div>
-
-          <Form.Item
-            name='Place'
-            label='АДРЕС И МЕСТО ПОСТАВКИ'
-            rules={[
-              validationRules("required", "Поле обязательно для заполнения"),
-              validationRules("min", "Минимум 3 три символа", 0, 3),
-              validationRules("max", "Максимум 255 три символа", 255, 0),
-            ]}
-          >
-            <TextArea
-              showCount
-              maxLength={255}
-              autoSize
-              placeholder='Адрес и место поставки'
-            />
-          </Form.Item>
-          <Form.Item
-            name='TermsOfDeliveryOfGoods'
-            label='СРОКИ ПОСТАВКИ ТОВАРА'
-            rules={[
-              validationRules("required", "Поле обязательно для заполнения"),
-              validationRules("min", "Минимум 3 три символа", 0, 3),
-              validationRules("max", "Максимум 255 три символа", 255, 0),
-            ]}
-          >
-            <TextArea
-              showCount
-              maxLength={255}
-              autoSize
-              placeholder='сроки поставки товара'
-            />
-          </Form.Item>
-          <Form.Item
-            name='Condition'
-            label='УСЛОВИЕ ПОСТАВКИ'
-            rules={[
-              validationRules("required", "Поле обязательно для заполнения"),
-              validationRules("min", "Минимум 3 три символа", 0, 3),
-              validationRules("max", "Максимум 255 три символа", 255, 0),
-            ]}
-          >
-            <TextArea
-              showCount
-              maxLength={255}
-              autoSize
-              placeholder='Условие поставки'
-            />
-          </Form.Item>
-
+          <div>
+            <p>Цена за единицу</p>
+            <Form.Item name='unitCost'>
+              <Input type='number' placeholder='Введите наименование лота' />
+            </Form.Item>
+            <p>С учетом всех налогов, сборов и прочих расходов</p>
+          </div>
+          <div>
+            <p>Количество</p>
+            <Form.Item
+              name='count'
+              rules={[
+                validationRules("required", "Поле  обязательно для заполнения"),
+                validationRules("min", "Минимум 3 три символа", 0, 3),
+                validationRules("max", "Максимум 255 три символа", 255, 0),
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={255}
+                autoSize
+                placeholder='Введите наименование лота'
+              />
+            </Form.Item>
+          </div>
+          <div>
+            <p>Техническая спецификация</p>
+            <Form.Item
+              name='technicalSpecific'
+              rules={[
+                validationRules("required", "Поле  обязательно для заполнения"),
+                validationRules("min", "Минимум 3 три символа", 0, 3),
+                validationRules("max", "Максимум 255 три символа", 255, 0),
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={255}
+                autoSize
+                placeholder='Введите наименование лота'
+              />
+            </Form.Item>
+          </div>
+          <div></div>
           <Form.Item wrapperCol={{ span: 24 }}>
             <Button block type='primary' htmlType='submit'>
               Добавить детали лота

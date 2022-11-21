@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import classes from "../../scss/global.module.scss";
 import styles from "./CreateOrder.module.scss";
 import { STEPS } from "./Steps";
+import { StepButton } from "@material-ui/core";
 
 export const handleNextContext = React.createContext(() => {});
 
@@ -50,7 +51,12 @@ function CreateOrder() {
               const stepProps: { completed?: boolean } = {};
 
               return (
-                <Step key={el.label} {...stepProps} className={styles.step}>
+                <Step
+                  key={el.label}
+                  {...stepProps}
+                  className={styles.step}
+                  onClick={() => setActiveStep(index)}
+                >
                   <StepLabel />
                   <p>{el.label}</p>
                 </Step>
