@@ -1,0 +1,1 @@
+export { AddNewLotDetail } from "./AddNewLotDetail";

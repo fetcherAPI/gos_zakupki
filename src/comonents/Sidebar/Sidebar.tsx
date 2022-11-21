@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -14,6 +13,7 @@ import { NavLink } from "react-router-dom";
 import { CloseBtnIcon } from "../../assets/img/export";
 import { Icon, icons } from "./icons";
 import { Drawer, DrawerHeader } from "./Sidebar.styled";
+import { MenuUnfoldOutlined } from "@ant-design/icons";
 import classes from "./Sidebar.module.scss";
 import Switcher from "../../UIComponents/switch";
 
@@ -47,7 +47,9 @@ const Sidebar = () => {
               marginRight: -0.5,
             }}
           >
-            <MenuIcon />
+            <MenuUnfoldOutlined
+              style={{ fontSize: "24px", color: "#aebfd7", cursor: "pointer" }}
+            />
           </IconButton>
         )}
 
