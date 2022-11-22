@@ -10,55 +10,66 @@ import {
   PlanGozZkupok,
   Provider,
 } from "../../assets/img/export";
-
+export {
+  MyAd,
+  Smeta,
+  BudgetOughts,
+  CancelBuy,
+  Complaints,
+  Contracts,
+  Logo,
+  Notice,
+  PlanGozZkupok,
+  Provider,
+};
 export const icons = [
   {
-    element: <MyAd />,
+    element: MyAd,
     text: "Мои объявления",
     path: "tender-list",
   },
   {
-    element: <Smeta />,
+    element: Smeta,
     text: "Смета",
     path: "/settings",
   },
   {
-    element: <PlanGozZkupok />,
+    element: PlanGozZkupok,
     text: "Планирование гоз.закупок",
     path: "/plan-gz",
   },
   {
-    element: <Contracts />,
+    element: Contracts,
     text: "Контракты",
-    path: '/create-tender',
+    path: "/create-tender",
   },
   {
-    element: <Notice />,
+    element: Notice,
     text: "уведомления",
     path: "/notice",
   },
   {
-    element: <Complaints />,
+    element: Complaints,
     text: "Мои жалобы",
     path: "/complaints",
   },
   {
-    element: <Provider />,
+    element: Provider,
     text: "Инициированные поставщики",
     path: "/provider",
   },
   {
-    element: <CancelBuy />,
+    element: CancelBuy,
     text: "Отмена закупок",
     path: "/cancel-buy",
   },
   {
-    element: <BudgetOughts />,
+    element: BudgetOughts,
     text: "Бюджетные обязательства",
     path: "/budget-oughts",
   },
   {
-    element: <Logo />,
+    element: Logo,
     text: "Настройки",
     path: "/settings",
   },

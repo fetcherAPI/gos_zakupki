@@ -9,15 +9,10 @@
 .ant-form-item-label {
 }
 .ant-select-selector {
-  width: 40px;
-  background-color: aqua;
+  min-height: 40px;
 }
 .ant-input,
 .ant-picker-input > input {
   height: 44px;
   font-size: 16px;
-}
-
-.ant-form-item {
-  margin-bottom: 0;
 }

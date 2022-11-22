@@ -132,7 +132,9 @@ export const AddNewLotDetail = (props: Props) => {
               />
             </Form.Item>
           </div>
-          <div></div>
+          <div>
+            <h1>Прикрепить детальную техническую спецификацию</h1>
+          </div>
           <Form.Item wrapperCol={{ span: 24 }}>
             <Button block type='primary' htmlType='submit'>
               Добавить детали лота
